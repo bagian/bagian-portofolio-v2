@@ -142,16 +142,15 @@ export default function WorkPage() {
   return (
     <main className="bg-white text-black min-h-screen select-none overflow-x-hidden">
       {/* SECTION 1: HERO */}
-      <section className="relative h-[100dvh] w-full flex items-center justify-center px-6 md:px-24 overflow-hidden bg-white">
+      <section className="relative h-[100dvh] w-full flex items-center justify-center px-6 md:px-24 overflow-hidden">
         {/* Background Accent (Optional: Menambah tekstur visual) */}
         <div className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-gray-50 rounded-full blur-[120px] -z-10" />
-
         <div className="w-full max-w-[1400px] flex flex-col justify-between h-[70vh]">
           {/* Top Label (Menambah kesan terorganisir) */}
           <div className="reveal flex items-center gap-4">
             <div className="w-12 h-[1px] bg-black"></div>
             <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-black">
-              BAgian Corps
+              Bagian Corps
             </span>
           </div>
 
@@ -185,7 +184,7 @@ export default function WorkPage() {
               <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-gray-400 group-hover:text-black transition-colors">
                 Scroll
               </span>
-              <div className="w-10 h-16 md:w-12 md:h-20 rounded-full border border-gray-200 flex items-start justify-center p-2 group-hover:border-black transition-colors">
+              <div className="w-10 h-16 md:w-12 md:h-20 rounded-full border border-gray-200 flex items-start justify-center group-hover:border-black transition-colors">
                 <div className="w-1 h-3 bg-black rounded-full animate-wheel-move" />
               </div>
             </div>
@@ -197,10 +196,10 @@ export default function WorkPage() {
       <section
         ref={horizontalSectionRef}
         id="horizontal-container"
-        className="relative h-screen overflow-hidden border-y border-gray-100 bg-white"
+        className="relative h-screen overflow-hidden border-y border-gray-100"
       >
         {/* INDICATOR ATAS KANAN - Responsive Position */}
-        <div className="absolute top-20 md:top-28 right-6 md:right-12 z-50 flex items-center gap-4 md:gap-6 font-mono pointer-events-none indicator-element">
+        <div className="absolute top-20  right-6 md:right-12 z-50 flex items-center gap-4 md:gap-6 font-mono pointer-events-none indicator-element">
           <div className="flex flex-col items-end shrink-0">
             <span className="text-[8px] md:text-[10px] text-gray-400 uppercase tracking-widest mb-1">
               Index
@@ -229,9 +228,9 @@ export default function WorkPage() {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="horizontal-panel w-screen h-screen flex items-center justify-center shrink-0 px-4 md:px-12"
+              className="horizontal-panel w-screen h-screen flex items-center justify-center shrink-0 "
             >
-              <div className="group flex flex-col w-full max-w-[1200px]">
+              <div className="group flex flex-col w-full max-w-7xl px-4 md:p-0">
                 {/* FRAME IMAGE - Responsive Aspect Ratio */}
                 <Link
                   href={project.link}

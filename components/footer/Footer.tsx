@@ -20,7 +20,6 @@ const CONTENT = {
     col_social: "Sosial",
     col_contact: "Hubungi",
 
-    // Update: Link sekarang mengarah ke slug dinamis yang sesuai
     services: [
       { name: "Website Design", href: "/services/ui-ux-design" },
       { name: "Web Application", href: "/services/web-development" },
@@ -47,7 +46,6 @@ const CONTENT = {
     col_social: "Socials",
     col_contact: "Contact",
 
-    // Update: Link sekarang mengarah ke slug dinamis yang sesuai
     services: [
       { name: "Website Design", href: "/services/website-design" },
       { name: "Web Development", href: "/services/web-development" },
@@ -76,6 +74,8 @@ const SOCIALS = [
 const Footer = () => {
   const { lang } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
   const t = useMemo(() => (lang === "EN" ? CONTENT.EN : CONTENT.ID), [lang]);
 
   useLayoutEffect(() => {
@@ -103,6 +103,70 @@ const Footer = () => {
           start: "top 70%",
         },
       });
+
+      // Animated color-changing blobs
+      if (blob1Ref.current && blob2Ref.current) {
+        // Blob 1 - Color animation
+        gsap.to(blob1Ref.current, {
+          background:
+            "radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%)",
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(blob1Ref.current, {
+          background:
+            "radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%)",
+          duration: 6,
+          delay: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        // Blob 1 - Movement (reduced on mobile)
+        const isMobile = window.innerWidth < 768;
+        gsap.to(blob1Ref.current, {
+          x: isMobile ? "5vw" : "10vw",
+          y: isMobile ? "5vh" : "10vh",
+          duration: 8,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        // Blob 2 - Color animation
+        gsap.to(blob2Ref.current, {
+          background:
+            "radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)",
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(blob2Ref.current, {
+          background:
+            "radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%)",
+          duration: 7,
+          delay: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        // Blob 2 - Movement (reduced on mobile)
+        gsap.to(blob2Ref.current, {
+          x: isMobile ? "-5vw" : "-10vw",
+          y: isMobile ? "-5vh" : "-8vh",
+          duration: 10,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
     }, containerRef);
     return () => ctx.revert();
   }, [lang]);
@@ -110,13 +174,52 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer ref={containerRef} className="bg-white pt-12 pb-6 px-4 md:px-6">
-      <div className="footer-card bg-[#050505] text-white rounded-[2.5rem] p-8 md:p-12 lg:p-16 relative overflow-hidden min-h-[600px] flex flex-col justify-between isolate">
-        <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-        <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+    <footer
+      ref={containerRef}
+      className="bg-white pt-12 pb-6 px-4 md:px-6 overflow-hidden"
+    >
+      <div className="footer-card bg-[#050505] text-white rounded-[2.5rem] p-8 md:p-12 lg:p-16 relative overflow-hidden min-h-[600px] flex flex-col justify-between max-w-full">
+        {/* Animated Blob 1 */}
+        <div
+          ref={blob1Ref}
+          className="absolute top-[5%] right-[5%] md:top-[-20%] md:right-[-10%] w-[220px] h-[220px] md:w-[90vw] md:h-[90vw] md:max-w-[900px] md:max-h-[900px] rounded-full blur-[40px] md:blur-[20px] pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%)",
+          }}
+        ></div>
+
+        {/* Animated Blob 2 */}
+        <div
+          ref={blob2Ref}
+          className="absolute bottom-[5%] left-[5%] md:bottom-[-20%] md:left-[-10%] w-[200px] h-[200px] md:w-[80vw] md:h-[80vw] md:max-w-[750px] md:max-h-[750px] rounded-full blur-[60px] md:blur-[100px] pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)",
+          }}
+        ></div>
+        {/* Animated Blob 1 */}
+        <div
+          ref={blob1Ref}
+          className="absolute top-[10%] right-[10%] md:top-[-20%] md:right-[-10%] w-[200px] h-[200px] md:w-[80vw] md:h-[80vw] md:max-w-[700px] md:max-h-[700px] rounded-full blur-[60px] md:blur-[120px] pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)",
+          }}
+        ></div>
+
+        {/* Animated Blob 2 */}
+        <div
+          ref={blob2Ref}
+          className="absolute bottom-[10%] left-[10%] md:bottom-[-20%] md:left-[-10%] w-[80px] h-[80px] md:w-[80vw] md:h-[80vw] md:max-w-[750px] md:max-h-[750px] rounded-full blur-[50px] md:blur-[100px] pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
+          }}
+        ></div>
 
         {/* PART 1: TOP CTA */}
-        <div className="relative z-[50] flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-20 border-b border-white/10 pb-12">
+        <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-20 border-b border-white/10 pb-12">
           <div className="max-w-2xl">
             <h2 className="footer-item text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-4 leading-[1.1]">
               {t.cta_title}
@@ -127,7 +230,7 @@ const Footer = () => {
           <div className="footer-item">
             <Link
               href="/contact"
-              className="group bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-indigo-500 hover:text-white transition-all duration-300 flex items-center gap-2 whitespace-nowrap cursor-none relative z-50 shadow-lg hover:shadow-indigo-500/50"
+              className="group bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-indigo-500 hover:text-white transition-all duration-300 flex items-center gap-2 whitespace-nowrap cursor-none relative z-20 shadow-lg hover:shadow-indigo-500/50"
             >
               {t.cta_btn}
               <ArrowUpRightIcon className="w-5 h-5 group-hover:rotate-45 transition-transform" />
@@ -200,7 +303,7 @@ const Footer = () => {
             <div className="footer-item w-fit">
               <a
                 href="mailto:halo@bagian.web.id"
-                className="text-xs md:text-xl font-bold text-white hover:text-indigo-400 transition-colors block mb-1 cursor-none"
+                className="text-sm md:text-xl font-bold text-white hover:text-indigo-400 transition-colors block mb-1 cursor-none"
               >
                 halo@bagian.web.id
               </a>
@@ -230,7 +333,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 right-[-1%] select-none pointer-events-none opacity-[0.05] translate-y-[20%] z-0">
+        <div className="absolute bottom-0 right-0 select-none pointer-events-none opacity-[0.05] translate-y-[20%] z-0">
           <h1 className="text-[15rem] md:text-[20rem] font-black text-white leading-none tracking-tighter font-array">
             BAGIAN
           </h1>
