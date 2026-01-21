@@ -64,7 +64,7 @@ export default function GlobalCursor() {
     <div
       ref={cursorRef}
       // pointer-events-none adalah WAJIB agar klik mouse tidak terhalang oleh div kursor
-      className="fixed top-0 left-0 pointer-events-none z-[99999] flex items-center justify-center rounded-full mix-blend-difference bg-white will-change-transform transition-[width,height] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+      className="fixed top-0 left-0 pointer-events-none z-[99999] md:flex items-center justify-center rounded-full mix-blend-difference bg-white will-change-transform transition-[width,height] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hidden"
       style={{
         width: cursorType === "pointer" ? "22px" : "100px",
         height: cursorType === "pointer" ? "22px" : "100px",
