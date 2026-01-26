@@ -6,6 +6,8 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import SmoothScroll from "@/components/lib/SmoothScroll";
 import GlobalCursor from "@/components/GlobalCursor";
+import Preloader from "@/components/ui/Preloader";
+import { LoaderProvider } from "@/context/LoaderContext";
 
 // --- KONFIGURASI FONT CABINET GROTESK (8 VARIAN) ---
 const CabinetGrotesk = localFont({
@@ -78,14 +80,17 @@ export default function RootLayout({
       <body
         className={`${CabinetGrotesk.variable} ${ArrayFont.variable} antialiased overflow-x-hidden lg:cursor-none`}
       >
-        <LanguageProvider>
-          <SmoothScroll>
-            <Navbar />
-            <GlobalCursor />
-            <main>{children}</main>
-            <Footer />
-          </SmoothScroll>
-        </LanguageProvider>
+        <LoaderProvider>
+          <Preloader />
+          <LanguageProvider>
+            <SmoothScroll>
+              <Navbar />
+              <GlobalCursor />
+              <main>{children}</main>
+              <Footer />
+            </SmoothScroll>
+          </LanguageProvider>
+        </LoaderProvider>
       </body>
     </html>
   );

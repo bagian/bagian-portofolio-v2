@@ -1,527 +1,673 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useMemo } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
-import {
-  CodeBracketIcon,
-  PaintBrushIcon,
-  WrenchScrewdriverIcon,
-  CheckBadgeIcon,
-  ArrowRightIcon,
-  ComputerDesktopIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { CpuChipIcon } from "@heroicons/react/24/outline";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- DEFINISI KONTEN (SAMA) ---
+// --- TYPE DEFINITIONS ---
+interface Plan {
+  name: string;
+  price: string;
+  desc: string;
+  features: string[];
+  highlight?: boolean;
+}
+
 const CONTENT = {
   ID: {
     hero: {
-      title: "Membangun Ekosistem Digital Anda.",
-      desc: "Solusi perangkat lunak dari hulu ke hilir. Kami memadukan estetika desain dengan ketangguhan kode untuk bisnis yang visioner.",
+      label: "Spesifikasi Layanan",
+      title: "Rekayasa Digital",
+      subtitle:
+        "Kami tidak hanya mendesain, kami merakit sistem digital yang presisi, skalabel, dan berorientasi pada performa.",
     },
     services: {
-      title: "Keahlian Kami",
+      title: "Kapabilitas Inti",
       items: [
         {
-          title: "Desain Website",
-          desc: "Setiap piksel memiliki tujuan. Kami merancang UI/UX yang tidak hanya memukau mata, tapi juga intuitif bagi pengguna Anda.",
-          link: "/services/website-design",
+          id: "01",
+          title: "UI/UX Engineering",
+          desc: "Perancangan antarmuka berbasis data dan perilaku pengguna.",
+          tech: ["Figma", "Prototyping", "Design System"],
         },
         {
-          title: "Aplikasi Website",
-          desc: "Pengembangan sistem berbasis web yang kompleks, skalabel, dan aman untuk operasional bisnis yang lebih efisien.",
-          link: "/services/website-design",
+          id: "02",
+          title: "Full-Stack Development",
+          desc: "Pembangunan sistem web end-to-end yang tangguh dan aman.",
+          tech: ["Next.js", "Laravel", "PostgreSQL"],
         },
         {
-          title: "Maintenance",
-          desc: "Kami menjaga website Anda tetap berjalan 24/7. Pembaruan keamanan, backup rutin, dan optimasi performa berkelanjutan.",
-          link: "/services/website-design",
+          id: "03",
+          title: "System Maintenance",
+          desc: "Pemantauan kesehatan server, keamanan, dan update berkala.",
+          tech: ["DevOps", "Security", "Backup"],
         },
         {
-          title: "Cutom CMS",
-          desc: "Kelola konten Anda dengan sistem yang ringan dan dipersonalisasi. Dashboard admin yang intuitif, aman, dan dibangun khusus sesuai alur kerja bisnis Anda.",
-          link: "/services/custom-cms",
+          id: "04",
+          title: "Custom CMS",
+          desc: "Panel admin yang disesuaikan total dengan alur kerja bisnis.",
+          tech: ["Admin Panel", "Role Management", "API"],
         },
       ],
     },
     process: {
-      title: "Alur Kerja",
-      subtitle: "Transparansi di setiap langkah.",
+      title: "Algoritma Eksekusi",
       steps: [
-        { title: "Konsultasi", desc: "Diskusi kebutuhan & scoping." },
-        { title: "Riset & Analisis", desc: "Analisis pasar & kompetitor." },
-        { title: "Desain UI/UX", desc: "Wireframe & High-fidelity." },
-        { title: "Development", desc: "Coding (Front & Back-end)." },
-        { title: "Quality Assurance", desc: "Testing bug & performa." },
-        { title: "Peluncuran", desc: "Deploy ke server production." },
-        { title: "Support", desc: "Maintenance pasca-rilis." },
+        {
+          phase: "01",
+          title: "Discovery",
+          desc: "Analisis kebutuhan & strategi teknis.",
+        },
+        {
+          phase: "02",
+          title: "Architecture",
+          desc: "Perancangan struktur data & wireframe.",
+        },
+        {
+          phase: "03",
+          title: "Development",
+          desc: "Penulisan kode bersih & integrasi.",
+        },
+        {
+          phase: "04",
+          title: "Quality Control",
+          desc: "Testing komprehensif & debugging.",
+        },
+        {
+          phase: "05",
+          title: "Deployment",
+          desc: "Peluncuran ke production server.",
+        },
       ],
     },
     pricing: {
-      title: "Investasi",
-      subtitle: "Pilih paket yang sesuai dengan fase bisnis Anda.",
-      plans: [
-        {
-          name: "Desain",
-          price: "350rb",
-          prefix: "Mulai",
-          features: [
-            "Riset Kompetitor",
-            "Wireframe & Prototype",
-            "Desain Homepage",
-            "3x Revisi",
-            "Aset Grafis",
-          ],
-          cta: "Ajukan Penawaran",
-          isPopular: false,
-        },
-        {
-          name: "Production",
-          price: "4.5jt",
-          prefix: "Mulai",
-          features: [
-            "Semua Fitur Desain",
-            "Coding Frontend/Backend",
-            "Integrasi Database",
-            "Gratis Hosting & Domain",
-            "12x Revisi",
-          ],
-          cta: "Mulai Proyek",
-          isPopular: true,
-        },
-        {
-          name: "Maintenance",
-          price: "600rb",
-          prefix: "Per Bulan",
-          features: [
-            "Update Konten",
-            "Backup Harian",
-            "Security Patch",
-            "Priority Support",
-            "Laporan Bulanan",
-          ],
-          cta: "Hubungi Sales",
-          isPopular: false,
-        },
-      ],
-    },
-    cta: {
-      title: "Siap Memulai Proyek?",
-      btn: "Hubungi Kami",
+      title: "Model Investasi",
+      toggle: ["Per Proyek", "IT Partner (Bulanan)"],
+      btn: "Pilih Paket",
+      emailTarget: "bagian.desk@gmail.com",
+      plans: {
+        project: [
+          {
+            name: "Starter Page",
+            price: "IDR 4.780.000",
+            desc: "Ideal untuk portofolio personal atau landing page produk.",
+            features: [
+              "1-3 Halaman Responsif",
+              "Optimasi SEO Dasar",
+              "Setup Domain & Server",
+              "Domain Gratis",
+              "Revisi Minor 2x",
+            ],
+          },
+          {
+            name: "Web Perusahaan",
+            price: "IDR 8.825.000",
+            desc: "Website profil perusahaan profesional dengan CMS.",
+            features: [
+              "5-8 Halaman",
+              "Panel Admin",
+              "Sistem Manajemen Konten (CMS)",
+              "Integrasi API",
+              "Optimasi SEO",
+              "Setup Google Analytics",
+              "Halaman Responsif",
+              "Sistem Manajemen Konten",
+              "Integrasi WhatsApp API",
+              "Garansi Bug 30 Hari",
+              "Setup Domain & Server",
+              "Gratis Domain Custom",
+              "10x Revisi Minor",
+            ],
+            highlight: true,
+          },
+          {
+            name: "Custom App - [ Mulai Dari ]",
+            price: "IDR 15.000.000",
+            desc: "Sistem aplikasi web kompleks sesuai kebutuhan bisnis.",
+            features: [
+              "10+ Halaman",
+              "Panel Admin",
+              "Sistem Manajemen Konten (CMS)",
+              "Integrasi API",
+              "Optimasi SEO",
+              "Setup Google Analytics",
+              "Halaman Responsif",
+              "Sistem Manajemen Konten",
+              "Integrasi WhatsApp API",
+              "Garansi Bug 30 Hari",
+              "Setup Domain & Server",
+              "Gratis Domain Custom",
+              "Revisi Minor Tak Terbatas",
+              "Template / Tema Custom",
+              "Tampilan UI Premium",
+              "Preloader",
+              "Layanan Eksklusif",
+            ],
+            highlight: false,
+          },
+        ],
+        monthly: [
+          {
+            name: "Basic Maintenance",
+            price: "IDR 1.500.000 / bln",
+            desc: "Menjaga aset digital tetap hidup, aman, dan mutakhir.",
+            features: [
+              "Update Core, Theme & Plugin",
+              "Cloud Backup Mingguan (Retensi 1 Bulan)",
+              "Monitoring Keamanan & Malware",
+              "Uptime Monitoring 24/7",
+              "Laporan Performa Bulanan",
+              "Perbaikan Bug Minor (Max 2 jam/bln)", // Added limit
+              "Dukungan via Email (Respon 24 Jam)",
+            ],
+            highlight: false,
+          },
+          {
+            name: "IT Partner (Dedicated)",
+            price: "IDR 6.000.000 / bln",
+            desc: "Tim teknis pribadi Anda. Solusi proaktif untuk pertumbuhan bisnis.",
+            features: [
+              "Semua Fitur Basic Maintenance",
+              "Manajemen Server/VPS & Domain", // Fitur krusial untuk harga ini
+              "Prioritas Penanganan (Jalur WhatsApp)",
+              "Unlimited Minor UI/UX Changes", // Value utama
+              "Audit SEO Teknis Berkala",
+              "Optimasi Kecepatan (Asset Compression)",
+              "Sesi Konsultasi Strategi Bulanan (1 Jam)",
+            ],
+            highlight: true,
+          },
+          {
+            name: "Scale Up / Enterprise",
+            price: "Hubungi Kami",
+            desc: "Infrastruktur tingkat lanjut untuk aplikasi traffic tinggi.",
+            features: [
+              "Dedicated Full-Stack Team",
+              "DevOps: CI/CD Pipeline Setup",
+              "Load Balancing & Auto-scaling",
+              "Database Replication & Sharding",
+              "SLA Jaminan Uptime 99.99%",
+              "Penetration Testing (Security)",
+              "Laporan Real-time Dashboard",
+            ],
+            highlight: false,
+          },
+        ],
+      },
     },
   },
   EN: {
     hero: {
-      title: "Building Your Digital Ecosystem.",
-      desc: "End-to-end software solutions. We blend design aesthetics with code robustness for visionary businesses.",
+      label: "Service Specifications",
+      title: "Digital Engineering",
+      subtitle:
+        "We don't just design, we assemble digital systems that are precise, scalable, and performance-oriented.",
     },
     services: {
-      title: "Our Expertise",
+      title: "Core Capabilities",
       items: [
         {
-          title: "Website Design",
-          desc: "Every pixel has a purpose. We craft UI/UX that is not only visually stunning but also intuitive for your users.",
-          link: "/services/website-design",
+          id: "01",
+          title: "UI/UX Engineering",
+          desc: "Interface design based on data and user behavior.",
+          tech: ["Figma", "Prototyping", "Design System"],
         },
         {
-          title: "Web Development",
-          desc: "Development of complex, scalable, and secure web-based systems for more efficient business operations.",
-          link: "/services/web-development",
+          id: "02",
+          title: "Full-Stack Development",
+          desc: "Building robust and secure end-to-end web systems.",
+          tech: ["Next.js", "Laravel", "PostgreSQL"],
         },
         {
-          title: "Maintenance",
-          desc: "We keep your site running 24/7. Security updates, routine backups, and continuous performance optimization.",
-          link: "/services/maintenance",
+          id: "03",
+          title: "System Maintenance",
+          desc: "Server health monitoring, security, and regular updates.",
+          tech: ["DevOps", "Security", "Backup"],
         },
         {
+          id: "04",
           title: "Custom CMS",
-          desc: "Manage your content with a lightweight and personalized system. Intuitive, secure admin dashboards built specifically to match your business workflow.",
-          link: "/services/maintenance",
+          desc: "Admin panels fully tailored to business workflows.",
+          tech: ["Admin Panel", "Role Management", "API"],
         },
       ],
     },
     process: {
-      title: "Workflow",
-      subtitle: "Transparency at every step.",
+      title: "Execution Algorithm",
       steps: [
-        { title: "Consultation", desc: "Discussion & scoping." },
-        { title: "Research", desc: "Market & competitor analysis." },
-        { title: "UI/UX Design", desc: "Wireframe & High-fidelity." },
-        { title: "Development", desc: "Coding (Front & Back-end)." },
-        { title: "QA Testing", desc: "Bug & performance checks." },
-        { title: "Launch", desc: "Deploy to production server." },
-        { title: "Support", desc: "Post-release maintenance." },
+        {
+          phase: "01",
+          title: "Discovery",
+          desc: "Requirement analysis & tech strategy.",
+        },
+        {
+          phase: "02",
+          title: "Architecture",
+          desc: "Data structuring & wireframing.",
+        },
+        {
+          phase: "03",
+          title: "Development",
+          desc: "Clean code writing & integration.",
+        },
+        {
+          phase: "04",
+          title: "Quality Control",
+          desc: "Comprehensive testing & debugging.",
+        },
+        {
+          phase: "05",
+          title: "Deployment",
+          desc: "Launch to production server.",
+        },
       ],
     },
     pricing: {
-      title: "Investment",
-      subtitle: "Choose a plan that fits your business phase.",
-      plans: [
-        {
-          name: "Design",
-          price: "350K",
-          prefix: "Starts at",
-          features: [
-            "Competitor Research",
-            "Wireframe & Prototype",
-            "Homepage Design",
-            "3x Revisions",
-            "Graphic Assets",
-          ],
-          cta: "Request Quote",
-          isPopular: false,
-        },
-        {
-          name: "Production",
-          price: "4.5M",
-          prefix: "Starts at",
-          features: [
-            "All Design Features",
-            "Frontend/Backend Coding",
-            "Database Integration",
-            "Free Hosting & Domain",
-            "12x Revisions",
-          ],
-          cta: "Start Project",
-          isPopular: true,
-        },
-        {
-          name: "Maintenance",
-          price: "600K",
-          prefix: "Per Month",
-          features: [
-            "Content Updates",
-            "Daily Backups",
-            "Security Patches",
-            "Priority Support",
-            "Monthly Report",
-          ],
-          cta: "Contact Sales",
-          isPopular: false,
-        },
-      ],
-    },
-    cta: {
-      title: "Ready to Start?",
-      btn: "Contact Us",
+      title: "Investment Models",
+      toggle: ["Project Base", "IT Partner (Monthly)"],
+      btn: "Select Plan",
+      emailTarget: "bagian.desk@bagian.com",
+      plans: {
+        project: [
+          {
+            name: "Starter Page",
+            price: "IDR 4.780.000",
+            desc: "Ideal for personal portfolios or product landing pages.",
+            features: [
+              "1-3 Responsive Pages",
+              "Basic SEO Optimization",
+              "Domain & Server Setup",
+              "Free Domain",
+              "2x Minor Revisions",
+            ],
+            highlight: false,
+          },
+          {
+            name: "Corporate Web",
+            price: "IDR 8.825.000",
+            desc: "Professional company profile website with CMS.",
+            features: [
+              "5-8 Pages",
+              "Admin Panels",
+              "Content Management System",
+              "API Integration",
+              "SEO Optimization",
+              "Google Analytics Setup",
+              "Responsive Pages",
+              "Content Management System",
+              "WhatsApp API Integration",
+              "30 Days Bug Warranty",
+              "Domain & Server Setup",
+              "Free Custom Domain",
+              "10x Minor Revisions",
+            ],
+            highlight: true,
+          },
+          {
+            name: "Custom App - [ Start From ]",
+            price: "IDR 15.000.000",
+            desc: "Complex web application system tailored to business needs.",
+            features: [
+              "10+ Pages",
+              "Admin Panels",
+              "Content Management System",
+              "API Integration",
+              "SEO Optimization",
+              "Google Analytics Setup",
+              "Responsive Pages",
+              "Content Management System",
+              "WhatsApp API Integration",
+              "30 Days Bug Warranty",
+              "Domain & Server Setup",
+              "Free Custom Domain",
+              "Unlimited Minor Revisions",
+              "Custom Template / Themes",
+              "Beautified UI",
+              "Preloader",
+              "Exclusive Services",
+            ],
+            highlight: false,
+          },
+        ],
+        monthly: [
+          {
+            name: "Basic Maintenance",
+            price: "IDR 1.500.000 / mo",
+            desc: "Keep your digital assets alive, secure, and up-to-date.",
+            features: [
+              "Core, Theme & Plugin Updates",
+              "Weekly Cloud Backups (1 Mo Retention)",
+              "Security & Malware Monitoring",
+              "24/7 Uptime Monitoring",
+              "Monthly Performance Report",
+              "Minor Bug Fixes (Max 2 hrs/mo)",
+              "Standard Email Support (24h Response)",
+            ],
+            highlight: false,
+          },
+          {
+            name: "IT Partner (Dedicated)",
+            price: "IDR 6.000.000 / mo",
+            desc: "Your fractional tech team. Proactive solutions for growth.",
+            features: [
+              "All Basic Maintenance Features",
+              "Server/VPS & Domain Management",
+              "Priority Support (WhatsApp Channel)",
+              "Unlimited Minor UI/UX Changes",
+              "Routine Technical SEO Audit",
+              "Speed Optimization (Asset Compression)",
+              "Monthly Strategy Consultation (1 Hr)",
+            ],
+            highlight: true,
+          },
+          {
+            name: "Scale Up / Enterprise",
+            price: "Contact Us",
+            desc: "Advanced infrastructure for high-traffic applications.",
+            features: [
+              "Dedicated Full-Stack Team",
+              "DevOps: CI/CD Pipeline Setup",
+              "Load Balancing & Auto-scaling",
+              "Database Replication & Sharding",
+              "99.99% Uptime SLA Guarantee",
+              "Penetration Testing (Security)",
+              "Real-time Dashboard Reporting",
+            ],
+            highlight: false,
+          },
+        ],
+      },
     },
   },
 };
 
 const ServicePage = () => {
   const { lang } = useLanguage();
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+  const pricingRef = useRef<HTMLDivElement>(null); // Ref khusus untuk section Pricing
+  const cardsContainerRef = useRef<HTMLDivElement>(null); // Ref untuk animasi kartu
 
-  const t = useMemo(() => {
-    return lang === "EN" ? CONTENT.EN : CONTENT.ID;
-  }, [lang]);
+  const [activePlan, setActivePlan] = useState<"project" | "monthly">(
+    "project"
+  );
 
-  const icons = [
-    <PaintBrushIcon key="icon-1" className="w-6 h-6" />,
-    <CodeBracketIcon key="icon-2" className="w-6 h-6" />,
-    <WrenchScrewdriverIcon key="icon-3" className="w-6 h-6" />,
-    <ComputerDesktopIcon key="icon-4" className="w-6 h-6" />,
-  ];
+  const t = useMemo(() => (lang === "EN" ? CONTENT.EN : CONTENT.ID), [lang]);
 
-  const handlePlanClick = (planName: string) => {
-    router.push(`/contact?plan=${encodeURIComponent(planName)}`);
+  // Generate Mailto Link
+  const generateMailto = (packageName: string, price: string) => {
+    const email = t.pricing.emailTarget;
+    let subject = "";
+    let body = "";
+
+    if (lang === "ID") {
+      subject = `Tanya Paket: ${packageName}`;
+      body = `Halo Tim Bagian,\n\nSaya tertarik dengan paket ${packageName} (${price}).\nBoleh dijelaskan lebih lanjut mengenai langkah selanjutnya?\n\nNama Saya: \nPerusahaan (Opsional): \n\nTerima kasih.`;
+    } else {
+      subject = `Inquiry: ${packageName} Plan`;
+      body = `Hello Bagian Team,\n\nI am interested in the ${packageName} plan (${price}).\nCould you please provide more details on the next steps?\n\nMy Name: \nCompany (Optional): \n\nThank you.`;
+    }
+
+    return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // --- 1. HERO ANIMATION (DELAY DITAMBAH) ---
-      gsap.fromTo(
-        ".hero-anim",
-        {
-          y: 100,
-          opacity: 0,
-          skewY: 5,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          skewY: 0,
-          duration: 1.2,
-          stagger: 0.1,
-          ease: "power4.out",
-          // FIX: Delay ditingkatkan menjadi 1.2 detik
-          // (0.8s durasi tutup navbar + buffer 0.4s)
-          delay: 1.2,
-        }
-      );
-
-      // --- 2. COLOR THEME TRANSITION ---
-      const scrollTl = gsap.timeline({
+      // 1. Reveal Item Umum (Hero, Service, Process)
+      gsap.from(".reveal-item", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: ".services-section",
-          start: "top 20%",
-          end: "top 20%",
-          scrub: 1.5,
+          trigger: containerRef.current,
+          start: "top 80%",
         },
       });
 
-      scrollTl
-        .to(containerRef.current, { backgroundColor: "#ffffff" })
-        .to(".bg-glow", { opacity: 0 }, "<")
-        .to("h1, h2, h3, h4, .price-text", { color: "#000000" }, "<")
-        .to(".text-desc", { color: "#4B5563" }, "<")
-        .to(
-          ".service-card, .pricing-card",
-          {
-            backgroundColor: "rgba(255,255,255)",
-            borderColor: "rgba(0,0,0,0.1)",
+      // 2. Line Animation
+      gsap.utils.toArray<HTMLElement>(".divider-line").forEach((line) => {
+        gsap.from(line, {
+          scaleX: 0,
+          transformOrigin: "left",
+          duration: 1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: line,
+            start: "top 90%",
           },
-          "<"
-        )
-        .to(".process-step-title", { color: "#000000" }, "<");
-
-      // --- 3. SCROLL REVEALS ---
-
-      const cards = gsap.utils.toArray<HTMLElement>(".service-card");
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { y: 80, opacity: 0 },
-          {
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-            },
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "expo.out",
-          }
-        );
+        });
       });
 
-      gsap.fromTo(
-        ".process-line",
-        { height: 0 },
-        {
-          scrollTrigger: {
-            trigger: ".process-section",
-            start: "top 60%",
-            end: "bottom 60%",
-            scrub: 1,
-          },
-          height: "100%",
-          ease: "none",
-        }
-      );
-
-      gsap.fromTo(
-        ".pricing-card",
-        { y: 60, opacity: 0 },
-        {
-          scrollTrigger: {
-            trigger: ".pricing-section",
-            start: "top 80%",
-          },
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "expo.out",
-        }
-      );
+      // 3. PRICING REVEAL (Terpisah agar tidak kena delay stagger dari atas)
+      gsap.from(".pricing-reveal", {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: pricingRef.current, // Trigger khusus section pricing
+          start: "top 75%",
+        },
+      });
     }, containerRef);
-
     return () => ctx.revert();
   }, [lang]);
+
+  // Animasi saat Ganti Tab
+  useEffect(() => {
+    if (cardsContainerRef.current) {
+      gsap.fromTo(
+        cardsContainerRef.current.children,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.out",
+          overwrite: true, // Penting: Hentikan animasi sebelumnya
+        }
+      );
+    }
+  }, [activePlan]);
 
   return (
     <div
       ref={containerRef}
-      className="bg-[#050505] text-white min-h-screen font-sans selection:bg-indigo-500 selection:text-white pb-20 transition-colors"
+      className="bg-white text-black min-h-screen font-sans pb-20 relative"
     >
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="bg-glow absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-900/20 rounded-full blur-[120px] mix-blend-screen opacity-50"></div>
-        <div className="bg-glow absolute bottom-[10%] right-[-5%] w-[30vw] h-[30vw] bg-blue-900/10 rounded-full blur-[100px] mix-blend-screen opacity-50"></div>
-      </div>
-
-      <div className="relative z-10">
-        <section className="pt-48 pb-32 px-6 md:px-12 max-w-7xl mx-auto flex flex-col items-start justify-center min-h-[70vh]">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
-            {t.hero.title.split(" ").map((word, i) => (
-              <span
-                key={i}
-                className="inline-block overflow-hidden mr-3 md:mr-5 align-top"
-              >
-                <span className="hero-anim inline-block origin-bottom-left">
-                  {word}
-                </span>
-              </span>
-            ))}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-40 md:pt-48">
+        {/* --- HERO SECTION --- */}
+        <section className="mb-32">
+          <span className="reveal-item inline-block px-3 py-1 border rounded-full text-[10px] font-mono uppercase tracking-widest mb-6 bg-white text-indigo-500 border-indigo-600">
+            ● {t.hero.label}
+          </span>
+          <h1 className="reveal-item text-6xl md:text-8xl font-bold tracking-tight mb-8">
+            {t.hero.title}
           </h1>
+          <p className="reveal-item text-sm text-gray-500 max-w-xl font-mono leading-6 border-l-2 border-gray-200 pl-6">
+            {t.hero.subtitle}
+          </p>
+        </section>
 
-          <div className="overflow-hidden max-w-2xl">
-            <p className="hero-anim text-lg md:text-xl text-gray-400 leading-relaxed origin-top-left">
-              {t.hero.desc}
-            </p>
+        {/* --- SERVICES GRID --- */}
+        <section className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+              / 01_SERVICES
+            </span>
+            <div className="divider-line h-[1px] bg-gray-200 flex-1"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {t.services.items.map((service, i) => (
+              <div
+                key={i}
+                className="reveal-item group p-8 border border-gray-200 bg-white hover:border-indigo-700 transition-colors duration-300 relative"
+              >
+                <div className="flex justify-between items-start mb-6">
+                  <span className="font-mono text-xs text-gray-400">
+                    ID_{service.id}
+                  </span>
+                  <CpuChipIcon className="w-6 h-6 text-gray-300 group-hover:text-black transition-colors" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 group-hover:underline decoration-1 underline-offset-4">
+                  {service.title}
+                </h3>
+                <p className="text-gray-500 text-sm font-mono mb-8 h-12">
+                  {service.desc}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {service.tech.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-1 bg-gray-50 border border-gray-100 text-[10px] font-mono uppercase text-gray-500"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className="services-section py-20 px-6 md:px-12 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-1 pr-8">
-              <h2 className="text-3xl font-bold mb-8 md:mb-0 sticky top-32">
-                {t.services.title}
-              </h2>
-            </div>
+        {/* --- PROCESS --- */}
+        <section className="mb-32">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
+              / 02_WORKFLOW
+            </span>
+            <div className="divider-line h-[1px] bg-gray-200 flex-1"></div>
+          </div>
 
-            <div className="md:col-span-2 grid gap-6">
-              {t.services.items.map((service, idx) => (
+          <div className="relative">
+            <div className="divider-line absolute top-[15px] left-0 w-full h-[1px] bg-gray-200 -z-10 hidden md:block"></div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+              {t.process.steps.map((step, i) => (
                 <div
-                  key={idx}
-                  className="service-card group relative p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-indigo-500/30 transition-all duration-500 overflow-hidden"
+                  key={i}
+                  className="reveal-item relative bg-white md:bg-transparent pt-4 md:pt-0"
                 >
-                  <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 text-indigo-500">
-                    {icons[idx] || <CodeBracketIcon className="w-6 h-6" />}
+                  <div className="w-8 h-8 bg-white border border-gray-200 flex items-center justify-center text-[10px] font-mono font-bold mb-4 md:mb-6 shadow-sm">
+                    {step.phase}
                   </div>
-                  <div className="relative z-10">
-                    <h3 className="text-2xl font-semibold mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-desc text-gray-400 leading-relaxed max-w-md">
-                      {service.desc}
-                    </p>
-                    <div className="mt-6 flex items-center gap-2 text-sm text-indigo-500 font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <Link href={service.link || "#"}>
-                        <span>Learn more</span>
-                      </Link>
-                      <ArrowRightIcon className="w-4 h-4" />
-                    </div>
-                  </div>
+                  <h4 className="text-sm font-bold uppercase tracking-wider mb-2">
+                    {step.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 font-mono leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="process-section py-32 px-6 md:px-12">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                {t.process.title}
-              </h2>
-              <p className="text-desc text-gray-400">{t.process.subtitle}</p>
+        {/* --- PRICING SECTION --- */}
+        <section ref={pricingRef} className="mb-20">
+          <div className="flex flex-col md:flex-row justify-between items-start mb-12">
+            <div className="pricing-reveal">
+              <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-2">
+                / 03_INVESTMENT
+              </span>
+              <h2 className="text-3xl font-medium">{t.pricing.title}</h2>
             </div>
-
-            <div className="relative h-full">
-              <div className="absolute left-[19px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-200/20 -translate-x-1/2 md:-translate-x-px"></div>
-              <div className="process-line absolute left-[19px] md:left-1/2 top-0 w-[2px] bg-indigo-500 -translate-x-1/2 md:-translate-x-px z-10 h-0"></div>
-
-              <div className="space-y-12">
-                {t.process.steps.map((step, idx) => (
-                  <div
-                    key={idx}
-                    className={`relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-0 ${idx % 2 === 0 ? "md:flex-row-reverse" : ""}`}
-                  >
-                    <div
-                      className={`md:w-1/2 pl-12 md:pl-0 ${idx % 2 === 0 ? "md:pl-12" : "md:pr-12 md:text-right"}`}
-                    >
-                      <h4 className="process-step-title text-xl font-bold mb-1">
-                        {step.title}
-                      </h4>
-                      <p className="text-desc text-sm text-gray-400">
-                        {step.desc}
-                      </p>
-                    </div>
-                    <div className="absolute left-[4px] md:left-1/2 -translate-x-1.5 md:-translate-x-1/2 w-10 h-10 rounded-full bg-indigo-500 border-4 border-transparent z-20 flex items-center justify-center shadow-lg">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    </div>
-                    <div className="hidden md:block md:w-1/2"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="pricing-section py-20 px-6 md:px-12 max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">{t.pricing.title}</h2>
-            <p className="text-desc text-gray-400">{t.pricing.subtitle}</p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {t.pricing.plans.map((plan, idx) => (
-              <div
-                key={idx}
-                className={`pricing-card relative flex flex-col p-8 rounded-3xl border transition-all duration-300 shadow-xl/[0.08] ${
-                  plan.isPopular
-                    ? "bg-white/[0.08] border-indigo-500/50 shadow-xl shadow-indigo-200"
-                    : "bg-white/[0.03] border-white/5"
-                }`}
+            <div className="flex bg-gray-100 p-2 pricing-reveal my-4 rounded-full justify-center items-center gap-4 w-fit">
+              <button
+                onClick={() => setActivePlan("project")}
+                className={`px-4 py-2 text-xs font-mono uppercase transition-all rounded-full ${activePlan === "project" ? "bg-white shadow text-black" : "text-gray-500"}`}
               >
-                {plan.isPopular && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
-                    Most Popular
-                  </span>
-                )}
+                {t.pricing.toggle[0]}
+              </button>
+              <button
+                onClick={() => setActivePlan("monthly")}
+                className={`px-4 py-2 text-xs font-mono uppercase transition-all rounded-full ${activePlan === "monthly" ? "bg-black shadow text-white" : "text-gray-500"}`}
+              >
+                {t.pricing.toggle[1]}
+              </button>
+            </div>
+          </div>
 
-                <div className="mb-8">
-                  <h3 className="text-lg font-medium text-desc text-gray-300 mb-2">
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-sm text-desc text-gray-500">IDR</span>
-                    <span className="text-4xl font-bold text-white price-text">
-                      {plan.price}
+          <div
+            ref={cardsContainerRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          >
+            {t.pricing.plans[activePlan].map((plan: Plan, i: number) => (
+              <div
+                key={i}
+                className={`pricing-reveal p-8 border ${plan.highlight ? "bg-[#111] text-white border-black rounded-xl" : "bg-white border-gray-200 rounded-xl"} flex flex-col`}
+              >
+                {plan.highlight && (
+                  <div className="absolute -top-1 transform -translate-y-1/2 -translate-x-1/2 left-1/2">
+                    <span className="bg-indigo-700 text-white text-[14px] font-bold uppercase px-3 py-1 rounded-full border-2 border-white">
+                      Recommended
                     </span>
                   </div>
-                  <p className="text-xs text-desc text-gray-500 mt-1">
-                    {plan.prefix}
-                  </p>
-                </div>
+                )}
+                <h3 className="text-lg font-bold mb-2">{plan.name}</h3>
+                <div
+                  className={`h-[1px] w-full mb-4 ${plan.highlight ? "bg-gray-800" : "bg-gray-100"}`}
+                ></div>
+                <p className="text-3xl font-mono mb-2">{plan.price}</p>
+                <p
+                  className={`text-xs font-mono mb-8 ${plan.highlight ? "text-gray-400" : "text-gray-500"}`}
+                >
+                  {plan.desc}
+                </p>
 
-                <ul className="space-y-4 mb-8 flex-1">
-                  {plan.features.map((feat, fIdx) => (
+                <ul className="flex-1 space-y-3 mb-8">
+                  {plan.features.map((f: string, idx: number) => (
                     <li
-                      key={fIdx}
-                      className="flex items-start gap-3 text-sm text-desc text-gray-300"
+                      key={idx}
+                      className="flex gap-3 text-sm font-mono items-center"
                     >
-                      <CheckBadgeIcon
-                        className={`w-5 h-5 shrink-0 ${plan.isPopular ? "text-indigo-500" : "text-gray-400"}`}
-                      />
-                      <span className="leading-tight">{feat}</span>
+                      <svg
+                        className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlight ? "text-green-400" : "text-black"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span
+                        className={
+                          plan.highlight ? "text-gray-400" : "text-gray-500"
+                        }
+                      >
+                        {f}
+                      </span>
                     </li>
                   ))}
                 </ul>
 
-                <button
-                  onClick={() => handlePlanClick(plan.name)}
-                  className={`w-full py-4 rounded-xl text-sm font-bold transition-all duration-300 cursor-pointer ${
-                    plan.isPopular
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                      : "bg-gray-800 text-white hover:bg-gray-900"
-                  }`}
+                <a
+                  href={generateMailto(plan.name, plan.price)}
+                  className={`block w-full py-4 text-center text-xs font-mono uppercase border transition-colors rounded-xl ${plan.highlight ? "bg-white text-black border-white hover:bg-gray-200" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
                 >
-                  {plan.cta}
-                </button>
+                  {t.pricing.btn}
+                </a>
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="py-24 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-black">
-            {t.cta.title}
-          </h2>
-          <button
-            onClick={() => router.push("/contact")}
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 rounded-full text-white font-bold hover:bg-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer"
-          >
-            {t.cta.btn}
-            <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
         </section>
       </div>
     </div>

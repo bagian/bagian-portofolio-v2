@@ -23,13 +23,6 @@
 }
 html,
 body {
-  /* max-width: 100vw; */
-  /* overflow-x: hidden; */
-  /* Menjaga ruang scrollbar tetap ada meskipun scroll dimatikan */
-  /* scrollbar-gutter: stable; */
-  /* position: relative; */
-}
-body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-cabinet), ui-sans-serif, system-ui;
@@ -62,4 +55,19 @@ body {
 
 .animate-wheel-move {
   animation: wheel-move 2s infinite cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Matikan scroll secara paksa */
+html.no-scroll,
+body.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  position: fixed !important; /* Force fixed biar gak bisa digeser sama sekali */
+  touch-action: none !important;
+  -ms-touch-action: none !important;
+}
+
+.mask-container {
+  clip-path: inset(0 0 0 0);
 }

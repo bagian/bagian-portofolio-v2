@@ -1,7 +1,7 @@
 export const SERVICES_DETAILS = {
   ID: {
-    "website-design": {
-      title: "Website Design",
+    "ui-ux-design": {
+      title: "UI/UX Design",
       description:
         "Kami merancang antarmuka yang intuitif dan pengalaman pengguna yang memukau.",
       content:
@@ -48,7 +48,6 @@ export const SERVICES_DETAILS = {
         "Manajemen Konten Dinamis",
         "Pengaturan Hak Akses Pengguna",
         "Integrasi Database Real-time",
-        "Pelatihan Penggunaan Sistem",
       ],
       backBtn: "Layanan Kami",
       sidebarTitle: "Mengapa layanan ini?",
@@ -74,10 +73,28 @@ export const SERVICES_DETAILS = {
         "Mencegah lebih baik daripada mengobati. Maintenance rutin menjaga reputasi brand Anda dari downtime dan kebocoran data.",
       cta: "Mulai Proyek",
     },
+    "performance-tuning": {
+      title: "Perbaikan Performa",
+      description: "",
+      content:
+        "Dunia digital tidak pernah tidur, begitu juga dengan tantangan teknisnya. Kami memastikan website Anda selalu diperbarui, aman dari serangan siber, dan memiliki cadangan data (backup) yang rutin.",
+      features: [
+        "Pemantauan Keamanan 24/7",
+        "Backup Data Harian/Mingguan",
+        "Update Library & Framework",
+        "Perbaikan Bug & Error",
+        "Optimasi Database Berkala",
+      ],
+      backBtn: "Layanan Kami",
+      sidebarTitle: "Mengapa layanan ini?",
+      sidebarDesc:
+        "Mencegah lebih baik daripada mengobati. Maintenance rutin menjaga reputasi brand Anda dari downtime dan kebocoran data.",
+      cta: "Mulai Proyek",
+    },
   },
   EN: {
-    "website-design": {
-      title: "Website Design",
+    "ui-ux-design": {
+      title: "UI/UX Design",
       description:
         "We design intuitive interfaces and stunning user experiences.",
       content:
@@ -115,7 +132,7 @@ export const SERVICES_DETAILS = {
       cta: "Start Project",
     },
     "custom-cms": {
-      title: "Custom CMS",
+      title: "Custome CMS",
       description:
         "Full control over your content without technical complexity.",
       content:
@@ -125,7 +142,6 @@ export const SERVICES_DETAILS = {
         "Dynamic Content Management",
         "User Access Control Settings",
         "Real-time Database Integration",
-        "System Usage Training",
       ],
       backBtn: "Our Services",
       sidebarTitle: "Why this service?",
@@ -150,6 +166,25 @@ export const SERVICES_DETAILS = {
       sidebarDesc:
         "Prevention is better than cure. Routine maintenance protects your brand reputation from downtime and data breaches.",
       cta: "Start Project",
+    },
+    "performance-tuning": {
+      title: "Performance Tuning",
+      description:
+        "Accelerate website load times for maximum SEO scores and better user retention.",
+      content:
+        "Speed is the most fundamental feature. In the attention economy, every millisecond counts. A slow website not only lowers Google rankings but also kills sales conversions. We conduct in-depth audits and code refactoring to ensure your website achieves green scores in Core Web Vitals.",
+      features: [
+        "Core Web Vitals Audit (LCP, FID, CLS)",
+        "Asset Optimization & Compression (Images/Video)",
+        "Advanced Caching & CDN Strategies",
+        "Code Minification (JS, CSS, HTML)",
+        "Elimination of Render-Blocking Resources",
+      ],
+      backBtn: "Back to Services",
+      sidebarTitle: "Why does speed matter?",
+      sidebarDesc:
+        "40% of users abandon websites that take more than 3 seconds to load. High performance instantly boosts SEO rankings and customer satisfaction.",
+      cta: "Analyze My Website",
     },
   },
 };

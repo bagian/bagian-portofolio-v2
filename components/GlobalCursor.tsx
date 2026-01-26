@@ -16,20 +16,36 @@ export default function GlobalCursor() {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
-    // Setup awal: Pastikan titik pusat kursor tepat di ujung mouse
-    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    // --- LOGIKA BARU UNTUK POSISI TENGAH ---
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
 
+    // 1. Set posisi awal elemen tepat di tengah layar
+    gsap.set(cursor, {
+      xPercent: -50,
+      yPercent: -50,
+      x: centerX,
+      y: centerY,
+    });
+    // ---------------------------------------
+
+    // Inisialisasi quickTo
     const xTo = gsap.quickTo(cursor, "x", { duration: 0.4, ease: "power3" });
     const yTo = gsap.quickTo(cursor, "y", { duration: 0.4, ease: "power3" });
 
+    // Opsional: Beritahu quickTo bahwa kita mulai dari tengah
+    // agar animasi pertama kali mouse bergerak menjadi mulus dari tengah ke posisi mouse
+    xTo(centerX);
+    yTo(centerY);
+
     const moveCursor = (e: MouseEvent) => {
+      // Saat mouse bergerak, cursor akan mengejar posisi mouse asli
       xTo(e.clientX);
       yTo(e.clientY);
 
-      // Perbaikan: Pastikan target adalah Element
       const target = e.target as HTMLElement;
 
-      // Cek apakah target memiliki metode closest (menghindari error pada Text Nodes atau Window)
+      // Cek safety target
       if (!target || typeof target.closest !== "function") return;
 
       const isLink = target.closest("a") || target.closest("button");
@@ -63,11 +79,10 @@ export default function GlobalCursor() {
   return (
     <div
       ref={cursorRef}
-      // pointer-events-none adalah WAJIB agar klik mouse tidak terhalang oleh div kursor
-      className="fixed top-0 left-0 pointer-events-none z-[99999] md:flex items-center justify-center rounded-full mix-blend-difference bg-white will-change-transform transition-[width,height] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hidden"
+      className="fixed top-0 left-0 pointer-events-none z-[99999] lg:flex items-center justify-center rounded-full mix-blend-difference bg-white will-change-transform transition-[width,height] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hidden"
       style={{
-        width: cursorType === "pointer" ? "22px" : "100px",
-        height: cursorType === "pointer" ? "22px" : "100px",
+        width: cursorType === "pointer" ? "20px" : "80px",
+        height: cursorType === "pointer" ? "20px" : "80px",
       }}
     >
       <span className="text-black font-mono text-[10px] font-bold tracking-widest uppercase text-center px-2">

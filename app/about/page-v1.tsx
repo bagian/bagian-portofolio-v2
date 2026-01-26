@@ -23,26 +23,25 @@ gsap.registerPlugin(ScrollTrigger);
 const CONTENT = {
   ID: {
     hero: {
-      label: "Profil Perusahaan",
       title: "Bukan Sekadar Software House.",
       subtitle:
         "Kami adalah mitra strategis yang menerjemahkan visi kompleks menjadi solusi digital yang elegan, fungsional, dan berdampak.",
     },
     story: {
       title: "Misi Kami",
-      p1: "Di Bagian, kami percaya bahwa teknologi seharusnya tidak membingungkan. Teknologi harusnya menjadi alat yang membebaskan potensi bisnis Anda.",
-      p2: "Berawal dari sekumpulan pengembang yang bersemangat di Surabaya, kami tumbuh menjadi tim yang dipercaya oleh berbagai industri untuk menangani transformasi digital mereka.",
+      p1: "Di Bagian, kami percaya bahwa teknologi seharusnya tidak membingungkan. Teknologi harusnya menjadi alat yang membebaskan potensi bisnis Anda, bukan menghambatnya.",
+      p2: "Berawal dari sekumpulan pengembang yang bersemangat di Sidoarjo, kami tumbuh menjadi tim yang dipercaya oleh berbagai industri untuk menangani transformasi digital mereka.",
       quote:
         "Kami tidak hanya menulis kode. Kami menulis masa depan bisnis Anda.",
     },
     stats: [
-      { number: "05+", label: "Tahun Pengalaman" }, // Added 0 padding style
+      { number: "5+", label: "Tahun Pengalaman" },
       { number: "100+", label: "Proyek Selesai" },
       { number: "25+", label: "Klien Partner" },
       { number: "100%", label: "Dedikasi" },
     ],
     clients: {
-      title: "Log Klien",
+      title: "Dipercaya Oleh",
       logos: [
         "TechCorp",
         "IndoRetail",
@@ -56,7 +55,7 @@ const CONTENT = {
       ],
     },
     process: {
-      title: "Protokol Kerja",
+      title: "Cara Kami Bekerja",
       subtitle: "Proses terstruktur untuk hasil yang terukur.",
       steps: [
         {
@@ -87,37 +86,37 @@ const CONTENT = {
         {
           icon: LightBulbIcon,
           title: "Inovasi Terarah",
-          desc: "Kami memilih teknologi yang paling relevan untuk memecahkan masalah Anda.",
+          desc: "Kami tidak sekadar mengikuti tren. Kami memilih teknologi yang paling relevan untuk memecahkan masalah Anda.",
         },
         {
           icon: ShieldCheckIcon,
           title: "Integritas Data",
-          desc: "Keamanan adalah prioritas mutlak. Standar keamanan tinggi.",
+          desc: "Keamanan adalah prioritas mutlak. Kami membangun sistem dengan standar keamanan tinggi.",
         },
         {
           icon: UserGroupIcon,
           title: "Kolaborasi Transparan",
-          desc: "Tidak ada istilah teknis yang disembunyikan. Komunikasi jujur.",
+          desc: "Tidak ada istilah teknis yang disembunyikan. Komunikasi jujur dan terbuka setiap saat.",
         },
         {
           icon: RocketLaunchIcon,
           title: "Performa Tinggi",
-          desc: "Optimasi setiap baris kode untuk kecepatan maksimal.",
+          desc: "Aplikasi lambat adalah musuh. Kami mengoptimalkan setiap baris kode untuk kecepatan maksimal.",
         },
         {
           icon: ClockIcon,
           title: "Tepat Waktu",
-          desc: "Manajemen proyek disiplin sesuai tenggat waktu.",
+          desc: "Manajemen proyek yang disiplin memastikan kami mengirimkan hasil sesuai tenggat waktu.",
         },
         {
           icon: SparklesIcon,
           title: "Dampak Nyata",
-          desc: "Tujuan akhir kami adalah pertumbuhan bisnis Anda.",
+          desc: "Tujuan akhir kami bukan peluncuran aplikasi, melainkan pertumbuhan bisnis Anda setelahnya.",
         },
       ],
     },
     team: {
-      title: "Personil Inti",
+      title: "Tim Kami",
       subtitle: "Bertemu dengan otak di balik layar.",
       members: [
         {
@@ -147,44 +146,40 @@ const CONTENT = {
       ],
     },
     culture: {
-      title: "Bergabunglah",
-      desc: "Kami selalu mencari talenta berbakat.",
+      title: "Bergabunglah dalam Perjalanan Kami",
+      desc: "Kami selalu mencari talenta berbakat yang memiliki visi yang sama.",
     },
   },
   EN: {
     hero: {
-      label: "Company Profile",
+      label: "About Us",
       title: "Not Just Another Software House.",
       subtitle:
         "We are strategic partners translating complex visions into elegant, functional, and impactful digital solutions.",
     },
     story: {
       title: "Our Mission",
-      p1: "At Bagian, we believe technology shouldn't be confusing. It should be a tool that liberates your business potential.",
-      p2: "Starting as a group of passionate developers in Surabaya, we have grown into a team trusted by various industries.",
+      p1: "At Bagian, we believe technology shouldn't be confusing. It should be a tool that liberates your business potential, not hinders it.",
+      p2: "Starting as a group of passionate developers in Sidoarjo, we have grown into a team trusted by various industries to handle their digital transformation.",
       quote: "We don't just write code. We write the future of your business.",
     },
     stats: [
-      { number: "05+", label: "Years Experience" },
+      { number: "5+", label: "Years Experience" },
       { number: "100+", label: "Projects Done" },
       { number: "25+", label: "Client Partners" },
       { number: "100%", label: "Dedication" },
     ],
     clients: {
-      title: "Client Logs",
+      title: "Trusted By",
       logos: [
-        "Kinaya Interior Design",
         "YellowKost & Partner",
         "Lentera Fajar Indonesia",
-        "KAI Wisata",
         "Kinaya Interior Design",
-        "YellowKost & Partner",
-        "Lentera Fajar Indonesia",
         "KAI Wisata",
       ],
     },
     process: {
-      title: "Working Protocol",
+      title: "How We Work",
       subtitle: "A structured process for measurable results.",
       steps: [
         {
@@ -215,7 +210,7 @@ const CONTENT = {
         {
           icon: LightBulbIcon,
           title: "Purposeful Innovation",
-          desc: "We choose the most relevant technology to solve your problems.",
+          desc: "We don't just follow trends. We choose the most relevant technology to solve your problems.",
         },
         {
           icon: ShieldCheckIcon,
@@ -225,27 +220,27 @@ const CONTENT = {
         {
           icon: UserGroupIcon,
           title: "Transparent Collaboration",
-          desc: "No hidden technical jargon. Honest and open communication.",
+          desc: "No hidden technical jargon. Honest and open communication at all times.",
         },
         {
           icon: RocketLaunchIcon,
           title: "High Performance",
-          desc: "We optimize every line of code for maximum speed.",
+          desc: "Slow apps are the enemy. We optimize every line of code for maximum speed.",
         },
         {
           icon: ClockIcon,
           title: "On-Time Delivery",
-          desc: "Disciplined project management ensures results on deadline.",
+          desc: "Disciplined project management ensures we deliver results on deadline.",
         },
         {
           icon: SparklesIcon,
           title: "Real Impact",
-          desc: "Our end goal is not just the app launch, but business growth.",
+          desc: "Our end goal is not just the app launch, but the growth of your business thereafter.",
         },
       ],
     },
     team: {
-      title: "Core Personnel",
+      title: "Our Team",
       subtitle: "Meet the brains behind the scenes.",
       members: [
         {
@@ -275,8 +270,8 @@ const CONTENT = {
       ],
     },
     culture: {
-      title: "Join Us",
-      desc: "We are always looking for talented individuals.",
+      title: "Join Our Journey",
+      desc: "We are always looking for talented individuals who share the same vision.",
     },
   },
 };
@@ -289,7 +284,7 @@ const AboutContent = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Hero Reveal
+      // Hero
       gsap.fromTo(
         ".hero-reveal",
         { y: 50, opacity: 0 },
@@ -303,77 +298,79 @@ const AboutContent = () => {
         }
       );
 
-      // 2. Story Section Reveal
+      // Story
       gsap.fromTo(
         ".story-text",
-        { y: 30, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 1,
           stagger: 0.1,
           scrollTrigger: { trigger: ".story-section", start: "top 80%" },
         }
       );
 
-      // 3. Stats Reveal (Staggered Numbers)
+      // Stats
       gsap.fromTo(
         ".stat-item",
-        { y: 20, opacity: 0 },
+        { scale: 0.8, opacity: 0 },
         {
-          y: 0,
+          scale: 1,
           opacity: 1,
-          duration: 0.6,
+          duration: 0.8,
           stagger: 0.1,
-          ease: "power2.out",
+          ease: "back.out(1.7)",
           scrollTrigger: { trigger: ".stats-section", start: "top 85%" },
         }
       );
 
-      // 4. Marquee Animation (KEPT & UPDATED FOR LIGHT THEME)
+      // --- MARQUEE ANIMATION (ANTI-JITTER FIXED) ---
       if (marqueeRef.current) {
+        // Force 3D untuk mengaktifkan GPU Acceleration
         gsap.set(marqueeRef.current, { force3D: true });
+
         gsap.to(marqueeRef.current, {
-          xPercent: -50,
+          xPercent: -50, // Pindah 50% (setengah dari total lebar yang sudah diduplikasi 4x)
           repeat: -1,
-          duration: 40,
-          ease: "linear",
-          force3D: true,
+          duration: 40, // Sedikit diperlambat agar smooth
+          ease: "linear", // LINEAR (bukan "none") agar konsisten
+          force3D: true, // Wajib: agar render di GPU
         });
       }
 
-      // 5. Process Steps
+      // Process
       gsap.fromTo(
-        ".process-card",
-        { opacity: 0, y: 30 },
+        ".process-step",
+        { opacity: 0, x: -50 },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           duration: 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
+          stagger: 0.2,
+          ease: "power3.out",
           scrollTrigger: { trigger: ".process-section", start: "top 75%" },
         }
       );
 
-      // 6. Value Cards
+      // Values
       gsap.fromTo(
         ".value-card",
-        { y: 40, opacity: 0 },
+        { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
           stagger: 0.1,
-          ease: "power2.out",
+          ease: "power3.out",
           scrollTrigger: { trigger: ".values-section", start: "top 75%" },
         }
       );
 
-      // 7. Team Reveal
+      // Team
       gsap.fromTo(
         ".team-card",
-        { y: 40, opacity: 0 },
+        { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -383,11 +380,24 @@ const AboutContent = () => {
           scrollTrigger: { trigger: ".team-section", start: "top 75%" },
         }
       );
+
+      // Culture Image
+      gsap.fromTo(
+        ".culture-image",
+        { scale: 1.1, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".culture-section", start: "top 80%" },
+        }
+      );
     }, containerRef);
     return () => ctx.revert();
   }, [lang]);
 
-  // Duplikasi logo untuk marquee
+  // DUPLIKASI 4X: Agar cukup panjang untuk loop tanpa gap/lompatan (jitter visual)
   const marqueeLogos = [
     ...t.clients.logos,
     ...t.clients.logos,
@@ -398,52 +408,49 @@ const AboutContent = () => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen pt-32 pb-20 font-sans max-w-7xl mx-auto"
+      className="min-h-screen bg-white text-gray-900 pt-32 pb-20"
     >
       {/* --- HERO SECTION --- */}
-      <section className="relative z-10 px-6 md:px-12 mb-24 md:mb-32">
-        <span className="hero-reveal inline-block px-3 py-1 border rounded-full text-[10px] font-mono uppercase tracking-widest mb-6 text-indigo-500 border-indigo-600">
-          ● {t.hero.label}
-        </span>
-        <h1 className="hero-reveal text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-8">
-          {t.hero.title}
-        </h1>
-        <p className="hero-reveal text-sm md:text-md text-gray-500 max-w-xl leading-relaxed font-mono border-l-2 border-gray-200 pl-6">
-          {t.hero.subtitle}
-        </p>
+      <section className="px-6 md:px-12 mb-24 md:mb-32">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="hero-reveal text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] mb-8 max-w-5xl">
+            {t.hero.title}
+          </h1>
+          <p className="hero-reveal text-xl md:text-2xl text-gray-500 max-w-2xl leading-relaxed">
+            {t.hero.subtitle}
+          </p>
+        </div>
       </section>
 
       {/* --- STORY SECTION --- */}
-      <section className="story-section relative z-10 px-6 md:px-12 mb-24 md:mb-32 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div className="story-text">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-widest text-gray-400 mb-6">
-              / Mission_Statement
-            </h2>
-            <div className="text-3xl md:text-4xl font-medium leading-tight">
+      <section className="story-section px-6 md:px-12 mb-24 md:mb-32 relative">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="story-text relative">
+            <div className="absolute top-0 left-0 w-24 h-24 bg-indigo-100 rounded-full mix-blend-multiply blur-xl -z-10"></div>
+            <div className="text-3xl md:text-4xl font-serif italic leading-tight text-gray-800 border-l-4 border-indigo-500 pl-6 py-2">
               &quot;{t.story.quote}&quot;
             </div>
           </div>
-          <div className="story-text space-y-6 text-lg text-gray-600 leading-relaxed font-mono text-sm md:text-base">
+          <div className="story-text space-y-6 text-lg text-gray-600 leading-relaxed">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+              {t.story.title}
+            </h2>
             <p>{t.story.p1}</p>
             <p>{t.story.p2}</p>
           </div>
         </div>
       </section>
 
-      {/* --- STATS SECTION (Dashboard Style) --- */}
-      <section className="stats-section relative z-10 mb-24 md:px-12 md:border-t md:border-b border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 md:border-t-0 border-r border-t border-l border-gray-200">
+      {/* --- STATS SECTION --- */}
+      <section className="stats-section bg-gray-50 py-20 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {t.stats.map((stat, idx) => (
-              <div
-                key={idx}
-                className="stat-item p-8 md:p-12 text-center group hover:bg-gray-50 transition-colors border-r border-b md:border-b-0 border-gray-200"
-              >
-                <div className="text-4xl md:text-5xl font-bold text-black mb-2 font-mono">
+              <div key={idx} className="stat-item text-center">
+                <div className="text-4xl md:text-6xl font-black text-indigo-600 mb-2">
                   {stat.number}
                 </div>
-                <div className="text-[10px] font-mono uppercase tracking-widest text-gray-500">
+                <div className="text-sm font-bold uppercase tracking-wider text-gray-500">
                   {stat.label}
                 </div>
               </div>
@@ -451,18 +458,25 @@ const AboutContent = () => {
           </div>
         </div>
       </section>
-      {/* --- CLIENTS MARQUEE (Light Mode) --- */}
-      <section className="clients-section relative z-10 mb-24 overflow-hidden">
-        {/* <div className="mb-8 px-6 md:px-12 text-center">
-          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400">
+
+      {/* --- CLIENTS MARQUEE SECTION --- */}
+      <section className="clients-section py-20 mb-24 border-b border-gray-100 overflow-hidden">
+        <div className="mb-12 px-6 md:px-12 text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">
             {t.clients.title}
           </p>
-        </div> */}
+        </div>
 
-        <div className="w-full overflow-hidden relative border-y border-gray-100 py-12 bg-gray-50/50">
+        {/* Marquee Wrapper */}
+        <div className="w-full overflow-hidden relative">
           <div className="absolute top-0 left-0 w-20 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
           <div className="absolute top-0 right-0 w-20 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
 
+          {/* FIX JITTER:
+              1. w-fit: Agar container selebar konten
+              2. will-change-transform: Beri hint ke browser untuk optimasi
+              3. backface-visibility: hidden via style inline
+          */}
           <div
             ref={marqueeRef}
             className="flex w-fit items-center gap-16 md:gap-24 whitespace-nowrap will-change-transform"
@@ -474,7 +488,7 @@ const AboutContent = () => {
             {marqueeLogos.map((client, idx) => (
               <span
                 key={idx}
-                className="text-2xl md:text-3xl font-bold text-gray-300 hover:text-black transition-colors duration-300 uppercase select-none font-mono"
+                className="text-3xl md:text-4xl font-black text-gray-300 hover:text-indigo-600 transition-colors duration-300  uppercase select-none"
               >
                 {client}
               </span>
@@ -484,130 +498,124 @@ const AboutContent = () => {
       </section>
 
       {/* --- PROCESS SECTION --- */}
-      <section className="process-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
-        <div className="mb-20 flex flex-col md:flex-row justify-between items-start gap-6">
-          <div>
-            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-2">
-              / Protocol
-            </span>
-            <h2 className="text-3xl md:text-5xl font-medium text-black">
+      <section className="process-section px-6 md:px-12 mb-32">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20 text-center">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">
               {t.process.title}
             </h2>
+            <p className="text-xl text-gray-500">{t.process.subtitle}</p>
           </div>
-          <p className="text-sm font-mono text-gray-500 max-w-md text-right">
-            {t.process.subtitle}
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {t.process.steps.map((step, idx) => (
-            <div
-              key={idx}
-              className="process-card flex gap-6 p-8 border border-gray-200 bg-white hover:border-black transition-colors duration-300"
-            >
-              <div className="shrink-0 w-12 h-12 bg-gray-50 border border-gray-200 flex items-center justify-center text-black">
-                <step.icon className="w-5 h-5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {t.process.steps.map((step, idx) => (
+              <div key={idx} className="process-step flex gap-6">
+                <div className="shrink-0 w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-indigo-600 border border-gray-100">
+                  <step.icon className="w-8 h-8" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-500 leading-relaxed">{step.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-black mb-2 uppercase tracking-wide">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-gray-500 font-mono leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* --- VALUES SECTION --- */}
-      <section className="values-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
-        <div className="mb-16">
-          <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-gray-400 mb-2 block">
-            / Core_Values
-          </span>
-          <h2 className="text-3xl md:text-5xl font-medium text-black">
-            {t.values.title}
-          </h2>
-        </div>
+      <section className="values-section px-6 md:px-12 mb-32">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16 md:text-center">
+            <span className="text-indigo-600 font-bold tracking-widest uppercase text-xs mb-2 block">
+              Philosophy
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900">
+              {t.values.title}
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-          {t.values.items.map((item, idx) => (
-            <div
-              key={idx}
-              className="value-card group p-8 bg-gray-200/5 hover:bg-gray-50 transition-colors border border-gray-200"
-            >
-              <div className="mb-6 text-gray-400 group-hover:text-black transition-colors">
-                <item.icon className="w-8 h-8" />
-              </div>
-              <h3 className="text-lg font-bold mb-3 text-black">
-                {item.title}
-              </h3>
-              <p className="text-xs text-gray-500 font-mono leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- TEAM SECTION (File Folder Style) --- */}
-      <section className="team-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
-        <div className="mb-16 flex items-center gap-4">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
-          <h2 className="text-3xl md:text-5xl font-medium text-black">
-            {t.team.title}
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {t.team.members.map((member, idx) => (
-            <div
-              key={idx}
-              className="team-card group border border-gray-200 bg-white p-4 rounded-xl"
-            >
-              <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 mb-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 rounded-lg">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                />
-              </div>
-              <div className="pt-2 border-t border-gray-100">
-                <h3 className="text-sm font-bold text-black uppercase tracking-wide">
-                  {member.name}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {t.values.items.map((item, idx) => (
+              <div
+                key={idx}
+                className="value-card group p-8 bg-white border border-gray-100 rounded-3xl hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300"
+              >
+                <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
+                  {item.title}
                 </h3>
-                <p className="text-[10px] font-mono text-gray-500 uppercase mt-1">
-                  {member.role}
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {item.desc}
                 </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* --- CULTURE / FOOTER IMAGE --- */}
-      {/* <section className="culture-section relative z-10 px-6 md:px-12 mb-20 max-w-7xl mx-auto">
-        <div className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden border border-gray-200">
+      {/* --- TEAM SECTION --- */}
+      <section className="team-section px-6 md:px-12 mb-32">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">
+              {t.team.title}
+            </h2>
+            <p className="text-xl text-gray-500 max-w-2xl">{t.team.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.team.members.map((member, idx) => (
+              <div key={idx} className="team-card group">
+                <div className="relative w-full aspect-[4/5] rounded-2xl mb-6 overflow-hidden shadow-lg bg-gray-100">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                    {member.name}
+                  </h3>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wider mt-1">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- CULTURE IMAGE --- */}
+      <section className="culture-section px-6 md:px-12 mb-20">
+        <div className="max-w-7xl mx-auto relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] shadow-2xl">
           <Image
             src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1600"
             alt="Office Culture"
             fill
-            className="culture-image object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
+            className="culture-image object-cover"
           />
-          <div className="absolute inset-0 flex items-center justify-center p-6 bg-black/40 backdrop-blur-[2px]">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 p-8 md:p-12 text-center text-white max-w-lg">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center text-center p-6">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
                 {t.culture.title}
               </h2>
-              <p className="font-mono text-xs md:text-sm">{t.culture.desc}</p>
+              <p className="text-white/80 text-lg md:text-xl">
+                {t.culture.desc}
+              </p>
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </div>
   );
 };

@@ -142,7 +142,7 @@ const translations = {
   },
   EN: {
     hero: {
-      services: ["UI Design", "UX Research", "Web Development", "Web Design"],
+      services: ["UI Design", "UX Research", "Web Development", "UI/UX Design"],
       location: "Surabaya, East Java",
       scroll: "[ Keep Scrolling ]",
     },
@@ -187,7 +187,7 @@ const translations = {
         {
           id: 4,
           name: "Photographer Portfolio Site",
-          category: "Web Design",
+          category: "UI/UX Design",
           image:
             "https://images.unsplash.com/photo-1493723843671-1d655e66ac1c?q=80&w=2370&auto=format&fit=crop",
           link: "#",

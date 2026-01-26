@@ -1,376 +1,276 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { useLanguage } from "@/context/LanguageContext";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
-export interface Project {
-  id: string;
-  title: {
-    en: string;
-    id: string;
-  };
-  category: {
-    en: string;
-    id: string;
-  };
-  image: string;
-  size: "large" | "medium" | "small";
-}
-
-const projects: Project[] = [
-  {
-    id: "01",
-    title: {
-      en: "Yellow Kost & Partner",
-      id: "Yellow Kost & Partner",
-    },
-    category: {
-      en: "Booking System",
-      id: "Sistem Pemesanan",
-    },
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070",
-    size: "large",
-  },
-  {
-    id: "02",
-    title: {
-      en: "Lentera Fajar Indonesia",
-      id: "Lentera Fajar Indonesia",
-    },
-    category: {
-      en: "Dashboard And Landingpage",
-      id: "Dashboard & Halaman Utama",
-    },
-    image:
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=2070",
-    size: "medium",
-  },
-  {
-    id: "03",
-    title: {
-      en: "Kinaya Interior Design",
-      id: "Kinaya Interior Design",
-    },
-    category: {
-      en: "Redesign & Landingpage",
-      id: "Desain Ulang & Halaman Utama",
-    },
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026",
-    size: "medium",
-  },
-  {
-    id: "04",
-    title: {
-      en: "KAI Wisata",
-      id: "KAI Wisata",
-    },
-    category: {
-      en: "Fixing Code",
-      id: "Perbaikan Kode",
-    },
-    image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070",
-    size: "small",
-  },
-];
-
-export default function FeaturedWork() {
+const SelectedWorks = () => {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const [activeProject, setActiveProject] = useState<string | null>(null);
-  const [displayedProject, setDisplayedProject] = useState<string | null>(null);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const { lang } = useLanguage();
-  const currentLang = (lang === "ID" ? "id" : "en") as "en" | "id";
-  const switchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const cursorLabelRef = useRef<HTMLDivElement>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+  // Refs untuk menyimpan fungsi animasi GSAP (Performance Optimization)
+  const xTo = useRef<gsap.QuickToFunc | null>(null);
+  const yTo = useRef<gsap.QuickToFunc | null>(null);
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+  const [activeProject, setActiveProject] = useState<number | null>(null);
 
-    const ctx = gsap.context(() => {
-      // Scroll animation for items
-      gsap.from(".work-item", {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: ".work-list",
-          start: "top 75%",
-          once: true,
-        },
-      });
-    }, containerRef);
+  useGSAP(
+    () => {
+      // 1. Setup Animasi Mouse Follower (Preview Image)
+      if (previewContainerRef.current) {
+        // Set initial position to center of viewport (optional, for safety)
+        gsap.set(previewContainerRef.current, { xPercent: -50, yPercent: -50 });
 
-    return () => {
-      ctx.revert();
-      lenis.destroy();
-    };
-  }, []);
-
-  // Handle cursor movement with delay
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-
-      if (imageContainerRef.current && activeProject) {
-        gsap.to(imageContainerRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 2.2,
-          ease: "power4.out",
+        xTo.current = gsap.quickTo(previewContainerRef.current, "left", {
+          duration: 0.8,
+          ease: "power3",
+        });
+        yTo.current = gsap.quickTo(previewContainerRef.current, "top", {
+          duration: 0.8,
+          ease: "power3",
         });
       }
-    };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [activeProject]);
+      // 2. Reveal List Animation (Stagger)
+      gsap.from(".directory-row", {
+        scrollTrigger: {
+          trigger: ".directory-list",
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+      });
+    },
+    { scope: containerRef }
+  );
 
-  // Handle project hover with liquid effect and delay
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (xTo.current && yTo.current) {
+      xTo.current(e.clientX);
+      yTo.current(e.clientY);
+    }
+  };
+
+  // Handle Hover Animation
   useEffect(() => {
-    if (!imageContainerRef.current) return;
-
-    const imgWrapper = imageContainerRef.current.querySelector("div");
-
-    if (activeProject) {
-      // Show image immediately on first hover
-      if (!displayedProject) {
-        // Use setTimeout to avoid synchronous setState in effect
-        const timer = setTimeout(() => {
-          setDisplayedProject(activeProject);
-        }, 0);
-
-        gsap.to(imageContainerRef.current, {
+    if (activeProject !== null) {
+      // SHOW Image
+      // Animasi Scale Up agar terlihat muncul dari titik kursor (atau tengah container preview)
+      gsap.fromTo(
+        previewContainerRef.current,
+        { scale: 0, opacity: 0 }, // Mulai dari kecil
+        {
           scale: 1,
           opacity: 1,
-          duration: 0.7,
-          ease: "elastic.out(1, 0.6)",
-        });
-        if (imgWrapper) {
-          gsap.to(imgWrapper, {
-            borderRadius: "20px",
-            duration: 0.7,
-            ease: "elastic.out(1, 0.6)",
-          });
-        }
-
-        return () => clearTimeout(timer);
-      } else if (activeProject !== displayedProject) {
-        // Morphing out animation (shrink to blob)
-        gsap.to(imageContainerRef.current, {
-          scale: 0.6,
-          duration: 0.3,
-          ease: "power2.in",
-        });
-        if (imgWrapper) {
-          gsap.to(imgWrapper, {
-            borderRadius: "100%",
-            duration: 0.3,
-            ease: "power2.in",
-            onComplete: () => {
-              setDisplayedProject(activeProject);
-              // Morphing in animation (expand back with liquid bounce)
-              gsap.to(imageContainerRef.current, {
-                scale: 1,
-                duration: 0.7,
-                ease: "elastic.out(1, 0.6)",
-              });
-              gsap.to(imgWrapper, {
-                borderRadius: "20px",
-                duration: 0.7,
-                ease: "elastic.out(1, 0.6)",
-              });
-            },
-          });
-        }
-      }
-    } else {
-      // Hide image (shrink to blob and fade)
-      gsap.to(imageContainerRef.current, {
-        scale: 0.7,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power2.in",
-      });
-      if (imgWrapper) {
-        gsap.to(imgWrapper, {
-          borderRadius: "50%",
           duration: 0.4,
-          ease: "power2.in",
-          onComplete: () => {
-            setDisplayedProject(null);
-          },
-        });
-      }
+          ease: "back.out(1.7)",
+          overwrite: "auto",
+        }
+      );
+
+      // Label Text juga muncul
+      gsap.to(cursorLabelRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.4,
+        overwrite: "auto",
+      });
+    } else {
+      // HIDE Image
+      gsap.to(previewContainerRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+        overwrite: "auto",
+      });
+      gsap.to(cursorLabelRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.3,
+        overwrite: "auto",
+      });
     }
-  }, [activeProject, displayedProject]);
-
-  const titleText = currentLang === "id" ? "Karya Terpilih" : "Selected Works";
-  const activeProjectData = projects.find((p) => p.id === displayedProject);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (switchTimeoutRef.current) {
-        clearTimeout(switchTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const handleProjectEnter = (projectId: string) => {
-    setActiveProject(projectId);
-  };
-
-  const handleProjectLeave = () => {
-    setActiveProject(null);
-  };
+  }, [activeProject]);
 
   return (
     <section
       ref={containerRef}
-      className="py-32 px-6 md:px-12 lg:px-16 relative"
+      className="relative w-full bg-white py-24 md:py-32 px-4 overflow-hidden z-20"
     >
-      {/* Floating cursor image with liquid morph - BEHIND TEXT - HIDDEN ON MOBILE */}
-      <div
-        ref={imageContainerRef}
-        className="hidden md:block fixed w-[250px] h-[320px] md:w-[350px] md:h-[450px] lg:w-[400px] lg:h-[500px] pointer-events-none z-10 -translate-x-1/2 -translate-y-1/2"
-        style={{
-          left: 0,
-          top: 0,
-          willChange: "transform",
-          filter: "url(#liquid)",
-        }}
-      >
-        {/* SVG Filter for liquid effect */}
-        <svg style={{ position: "absolute", width: 0, height: 0 }}>
-          <defs>
-            <filter id="liquid">
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="10"
-                result="blur"
-              />
-              <feColorMatrix
-                in="blur"
-                mode="matrix"
-                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                result="liquid"
-              />
-              <feComposite in="SourceGraphic" in2="liquid" operator="atop" />
-            </filter>
-          </defs>
-        </svg>
+      <div className="max-w-7xl mx-auto">
+        {/* --- SECTION HEADER --- */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 pb-6">
+          <div>
+            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-2">
+              /archive_2024-2026
+            </span>
+            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-[#1A1A1A]">
+              Selected Works
+            </h2>
+          </div>
+          <div className="hidden md:block text-right">
+            <p className="text-xs font-mono text-gray-500">
+              Total Projects: {t.projects.items.length} <br />
+              Status: All Deployed
+            </p>
+          </div>
+        </div>
 
+        {/* --- DESKTOP DIRECTORY LIST (INTERACTIVE) --- */}
         <div
-          className="relative w-full h-full overflow-hidden shadow-2xl"
-          style={{ willChange: "border-radius" }}
+          className="directory-list hidden md:flex flex-col relative"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => setActiveProject(null)}
         >
-          {activeProjectData && (
-            <Image
-              key={activeProjectData.id}
-              src={activeProjectData.image}
-              alt={activeProjectData.title[currentLang]}
-              fill
-              className="object-cover transition-transform duration-700"
-              quality={100}
-              unoptimized={true}
-              sizes="(max-width: 768px) 250px, (max-width: 1024px) 350px, 400px"
-              priority
-              style={{ transform: "scale(1.1)" }}
-            />
-          )}
+          {/* Header Table */}
+          <div className="flex w-full text-[10px] font-mono text-gray-400 uppercase tracking-widest pb-4 border-b border-gray-200">
+            <span className="w-1/12">ID</span>
+            <span className="w-5/12">Project Name</span>
+            <span className="w-3/12">Category</span>
+            <span className="w-3/12 text-right">Action</span>
+          </div>
+
+          {/* Rows */}
+          {t.projects.items.map((project, index) => (
+            <Link
+              key={project.id}
+              href={project.link}
+              className="directory-row group flex w-full py-8 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors relative z-10"
+              onMouseEnter={() => setActiveProject(index)}
+              onMouseLeave={() => setActiveProject(null)}
+            >
+              {/* ID */}
+              <span className="w-1/12 text-xs font-mono text-gray-400 group-hover:text-black transition-colors">
+                {project.id < 10 ? `0${index + 1}` : index + 1}
+              </span>
+
+              {/* Title */}
+              <span className="w-5/12 text-2xl font-medium text-gray-900 group-hover:translate-x-2 transition-transform duration-300">
+                {project.name}
+              </span>
+
+              {/* Category (Pill) */}
+              <span className="w-3/12">
+                <span className="text-[10px] font-mono uppercase bg-gray-100 text-gray-500 px-2 py-1 rounded border border-gray-200 group-hover:bg-black group-hover:text-white transition-colors">
+                  {project.category}
+                </span>
+              </span>
+
+              {/* Arrow Icon */}
+              <span className="w-3/12 text-right flex justify-end">
+                <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-colors">
+                  <svg
+                    className="w-3 h-3 text-gray-400 group-hover:text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </div>
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        {/* --- MOBILE CARDS (FALLBACK) --- */}
+        <div className="flex md:hidden flex-col gap-8">
+          {t.projects.items.map((project) => (
+            <div key={project.id} className="w-full">
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg mb-4 border border-gray-200">
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="text-[10px] font-mono text-gray-400 mb-1 block">
+                    {project.category}
+                  </span>
+                  <h3 className="text-xl font-medium text-gray-900">
+                    {project.name}
+                  </h3>
+                </div>
+                <Link
+                  href={project.link}
+                  className="w-8 h-8 rounded-full bg-black flex items-center justify-center"
+                >
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-screen mx-auto relative z-20 py-56">
-        {/* Header */}
-        <div className="mb-24 pb-12 border-b border-black relative z-20">
-          <h2 className="text-6xl md:text-[10rem] lg:text-[11rem] font-black uppercase leading-[0.85]  text-black">
-            {titleText}
-          </h2>
-        </div>
+      {/* --- FLOATING PREVIEW CONTAINER (FIXED POS) --- */}
+      {/* Catatan: Agar gambar muncul dari tengah viewport lalu mengikuti kursor, 
+          kita sebenarnya butuh logika yang lebih kompleks jika ingin benar-benar "fly from center".
+          Namun, standar UX "Mouse Follower" adalah gambar muncul (scale up/fade in) 
+          langsung di posisi kursor saat ini untuk menghindari disorientasi.
+          
+          Kode di atas menggunakan `fixed` positioning yang di-update oleh GSAP quickTo.
+      */}
+      <div
+        ref={previewContainerRef}
+        className="fixed top-0 left-0 w-[300px] h-[200px] md:w-[400px] md:h-[260px] pointer-events-none z-50 rounded-lg overflow-hidden hidden md:block border-4 border-white shadow-2xl opacity-0 scale-0"
+        style={{ transform: "translate(-50%, -50%)" }} // Centering transform via CSS
+      >
+        {t.projects.items.map((project, index) => (
+          <Image
+            key={project.id}
+            src={project.image}
+            alt={project.name}
+            fill
+            priority={index === 0}
+            className={`object-cover transition-opacity duration-300 ${
+              activeProject === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
 
-        {/* List Layout */}
-        <div className="work-list space-y-2">
-          {projects.map((project: Project) => (
-            <Link
-              key={project.id}
-              href={`/work/${project.id}`}
-              className="work-item group block"
-              onMouseEnter={() => handleProjectEnter(project.id)}
-              onMouseLeave={handleProjectLeave}
-            >
-              <div className="relative border-b border-black/10 hover:border-black transition-all duration-500 z-20">
-                <div className="grid grid-cols-12 gap-4 md:gap-8 items-center py-8 md:py-12 relative z-20">
-                  {/* Number */}
-                  <div className="col-span-2 md:col-span-1">
-                    <span className="text-sm md:text-base font-mono text-black/40 group-hover:text-black transition-all duration-300">
-                      {project.id}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <div className="col-span-10 md:col-span-5 lg:col-span-6">
-                    <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-black group-hover:translate-x-4 transition-all duration-500 ease-out">
-                      {project.title[currentLang]}
-                    </h3>
-                  </div>
-
-                  {/* Category */}
-                  <div className="col-span-8 md:col-span-4 lg:col-span-3">
-                    <span className="text-xs md:text-sm font-mono uppercase tracking-wider text-black/60 group-hover:text-black transition-all duration-300">
-                      {project.category[currentLang]}
-                    </span>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="col-span-4 md:col-span-2 flex justify-end">
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-black flex items-center justify-center group-hover:bg-black group-hover:scale-110 transition-all duration-300">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        className="text-black group-hover:text-white transition-colors duration-300 group-hover:rotate-45"
-                      >
-                        <path
-                          d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6464L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.7761 3 12 3 12 3.5V9C12 9.27614 11.7761 9.5 11.5 9.5C11.2239 9.5 11 9.27614 11 9V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                          fill="currentColor"
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+        {/* Technical Overlay on Image */}
+        <div
+          ref={cursorLabelRef}
+          className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-[8px] font-mono px-2 py-1 rounded"
+        >
+          LIVE PREVIEW
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default SelectedWorks;

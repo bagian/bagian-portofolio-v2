@@ -13,12 +13,11 @@ interface CustomWindow extends Window {
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     // 2. Daftarkan plugin GSAP
-    gsap.registerPlugin(ScrollTrigger);
 
     // 3. Inisialisasi Lenis
     const lenis = new Lenis({
       duration: 1.2,
-      lerp: 0.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
@@ -33,15 +32,17 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
     };
-
+    ScrollTrigger.defaults({ scroller: document.body });
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
+    ScrollTrigger.refresh();
 
     // Cleanup saat unmount
     return () => {
       lenis.destroy();
       customWindow.lenis = undefined;
       gsap.ticker.remove(updateTicker);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
