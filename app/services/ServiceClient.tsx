@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/context/LanguageContext";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,64 +95,46 @@ const CONTENT = {
       title: "Model Investasi",
       toggle: ["Per Proyek", "IT Partner (Bulanan)"],
       btn: "Pilih Paket",
+      seeMore: "Lihat Rincian Lengkap",
       emailTarget: "bagian.desk@gmail.com",
       plans: {
         project: [
           {
             name: "Starter Page",
-            price: "IDR 4.780.000",
+            price: "IDR 4.850.000",
             desc: "Ideal untuk portofolio personal atau landing page produk.",
             features: [
-              "1-3 Halaman Responsif",
-              "Optimasi SEO Dasar",
+              "1-3 Halaman Utama",
+              "Halaman Responsif",
               "Setup Domain & Server",
-              "Domain Gratis",
-              "Revisi Minor 2x",
+              "Domain .id Gratis",
+              "Frontend Development",
             ],
+            highlight: false,
           },
           {
             name: "Web Perusahaan",
             price: "IDR 8.825.000",
             desc: "Website profil perusahaan profesional dengan CMS.",
             features: [
-              "5-8 Halaman",
-              "Panel Admin",
-              "Sistem Manajemen Konten (CMS)",
-              "Integrasi API",
-              "Optimasi SEO",
-              "Setup Google Analytics",
-              "Halaman Responsif",
+              "5-8 Halaman Utama",
+              "Frontend + Backend",
               "Sistem Manajemen Konten",
+              "Optimasi SEO & Sitemap",
               "Integrasi WhatsApp API",
-              "Garansi Bug 30 Hari",
-              "Setup Domain & Server",
-              "Gratis Domain Custom",
-              "10x Revisi Minor",
             ],
             highlight: true,
           },
           {
-            name: "Custom App - [ Mulai Dari ]",
-            price: "IDR 15.000.000",
+            name: "Aplikasi Custom",
+            price: "Mulai IDR 15jt",
             desc: "Sistem aplikasi web kompleks sesuai kebutuhan bisnis.",
             features: [
-              "10+ Halaman",
-              "Panel Admin",
-              "Sistem Manajemen Konten (CMS)",
-              "Integrasi API",
-              "Optimasi SEO",
-              "Setup Google Analytics",
-              "Halaman Responsif",
-              "Sistem Manajemen Konten",
-              "Integrasi WhatsApp API",
-              "Garansi Bug 30 Hari",
-              "Setup Domain & Server",
-              "Gratis Domain Custom",
-              "Revisi Minor Tak Terbatas",
-              "Template / Tema Custom",
-              "Tampilan UI Premium",
-              "Preloader",
-              "Layanan Eksklusif",
+              "Fitur Tak Terbatas",
+              "Arsitektur API Kompleks",
+              "Desain UI/UX Premium",
+              "Prioritas Deployment",
+              "Layanan Eksklusif 24/7",
             ],
             highlight: false,
           },
@@ -162,43 +145,37 @@ const CONTENT = {
             price: "IDR 1.500.000 / bln",
             desc: "Menjaga aset digital tetap hidup, aman, dan mutakhir.",
             features: [
-              "Update Core, Theme & Plugin",
-              "Cloud Backup Mingguan (Retensi 1 Bulan)",
-              "Monitoring Keamanan & Malware",
+              "Update Core & Security",
+              "Cloud Backup Mingguan",
+              "Monitoring Keamanan",
               "Uptime Monitoring 24/7",
-              "Laporan Performa Bulanan",
-              "Perbaikan Bug Minor (Max 2 jam/bln)", // Added limit
-              "Dukungan via Email (Respon 24 Jam)",
+              "Laporan Bulanan",
             ],
             highlight: false,
           },
           {
             name: "IT Partner (Dedicated)",
             price: "IDR 6.000.000 / bln",
-            desc: "Tim teknis pribadi Anda. Solusi proaktif untuk pertumbuhan bisnis.",
+            desc: "Tim teknis pribadi Anda. Solusi proaktif bisnis.",
             features: [
-              "Semua Fitur Basic Maintenance",
-              "Manajemen Server/VPS & Domain", // Fitur krusial untuk harga ini
-              "Prioritas Penanganan (Jalur WhatsApp)",
-              "Unlimited Minor UI/UX Changes", // Value utama
-              "Audit SEO Teknis Berkala",
-              "Optimasi Kecepatan (Asset Compression)",
-              "Sesi Konsultasi Strategi Bulanan (1 Jam)",
+              "Semua Fitur Basic",
+              "Manajemen Server/VPS",
+              "Unlimited Minor UI Changes",
+              "Prioritas Fast Response",
+              "Next.js & React Support",
             ],
             highlight: true,
           },
           {
             name: "Scale Up / Enterprise",
             price: "Hubungi Kami",
-            desc: "Infrastruktur tingkat lanjut untuk aplikasi traffic tinggi.",
+            desc: "Infrastruktur tingkat lanjut untuk trafik tinggi.",
             features: [
               "Dedicated Full-Stack Team",
-              "DevOps: CI/CD Pipeline Setup",
-              "Load Balancing & Auto-scaling",
-              "Database Replication & Sharding",
-              "SLA Jaminan Uptime 99.99%",
-              "Penetration Testing (Security)",
-              "Laporan Real-time Dashboard",
+              "DevOps CI/CD Pipeline",
+              "Load Balancing Setup",
+              "SLA Uptime 99.99%",
+              "Security Audit Berkala",
             ],
             highlight: false,
           },
@@ -276,19 +253,20 @@ const CONTENT = {
       title: "Investment Models",
       toggle: ["Project Base", "IT Partner (Monthly)"],
       btn: "Select Plan",
-      emailTarget: "bagian.desk@bagian.com",
+      seeMore: "See Full Details",
+      emailTarget: "bagian.desk@gmail.com",
       plans: {
         project: [
           {
             name: "Starter Page",
-            price: "IDR 4.780.000",
-            desc: "Ideal for personal portfolios or product landing pages.",
+            price: "IDR 4.850.000",
+            desc: "Ideal for personal portfolios or landing pages.",
             features: [
-              "1-3 Responsive Pages",
-              "Basic SEO Optimization",
+              "1-3 Main Pages",
+              "Responsive Design",
               "Domain & Server Setup",
-              "Free Domain",
-              "2x Minor Revisions",
+              "Free .id Domain",
+              "Frontend Development",
             ],
             highlight: false,
           },
@@ -297,44 +275,24 @@ const CONTENT = {
             price: "IDR 8.825.000",
             desc: "Professional company profile website with CMS.",
             features: [
-              "5-8 Pages",
-              "Admin Panels",
-              "Content Management System",
-              "API Integration",
-              "SEO Optimization",
-              "Google Analytics Setup",
-              "Responsive Pages",
-              "Content Management System",
+              "5-8 Main Pages",
+              "Fullstack (FE+BE)",
+              "CMS Management System",
+              "SEO & Sitemap Audit",
               "WhatsApp API Integration",
-              "30 Days Bug Warranty",
-              "Domain & Server Setup",
-              "Free Custom Domain",
-              "10x Minor Revisions",
             ],
             highlight: true,
           },
           {
-            name: "Custom App - [ Start From ]",
-            price: "IDR 15.000.000",
-            desc: "Complex web application system tailored to business needs.",
+            name: "Custom Application",
+            price: "From IDR 15m",
+            desc: "Complex web application systems for your needs.",
             features: [
-              "10+ Pages",
-              "Admin Panels",
-              "Content Management System",
-              "API Integration",
-              "SEO Optimization",
-              "Google Analytics Setup",
-              "Responsive Pages",
-              "Content Management System",
-              "WhatsApp API Integration",
-              "30 Days Bug Warranty",
-              "Domain & Server Setup",
-              "Free Custom Domain",
-              "Unlimited Minor Revisions",
-              "Custom Template / Themes",
-              "Beautified UI",
-              "Preloader",
-              "Exclusive Services",
+              "Unlimited Features",
+              "Complex API Architecture",
+              "Premium UI/UX Design",
+              "Priority Deployment",
+              "24/7 Exclusive Support",
             ],
             highlight: false,
           },
@@ -343,45 +301,39 @@ const CONTENT = {
           {
             name: "Basic Maintenance",
             price: "IDR 1.500.000 / mo",
-            desc: "Keep your digital assets alive, secure, and up-to-date.",
+            desc: "Keep your digital assets alive and secure.",
             features: [
-              "Core, Theme & Plugin Updates",
-              "Weekly Cloud Backups (1 Mo Retention)",
-              "Security & Malware Monitoring",
+              "Core & Security Updates",
+              "Weekly Cloud Backups",
+              "Security Monitoring",
               "24/7 Uptime Monitoring",
               "Monthly Performance Report",
-              "Minor Bug Fixes (Max 2 hrs/mo)",
-              "Standard Email Support (24h Response)",
             ],
             highlight: false,
           },
           {
             name: "IT Partner (Dedicated)",
             price: "IDR 6.000.000 / mo",
-            desc: "Your fractional tech team. Proactive solutions for growth.",
+            desc: "Your fractional tech team for proactive growth.",
             features: [
-              "All Basic Maintenance Features",
-              "Server/VPS & Domain Management",
-              "Priority Support (WhatsApp Channel)",
-              "Unlimited Minor UI/UX Changes",
-              "Routine Technical SEO Audit",
-              "Speed Optimization (Asset Compression)",
-              "Monthly Strategy Consultation (1 Hr)",
+              "All Basic Features",
+              "Server/VPS Management",
+              "Unlimited Minor UI Changes",
+              "WhatsApp Fast Response",
+              "Next.js & React Support",
             ],
             highlight: true,
           },
           {
             name: "Scale Up / Enterprise",
             price: "Contact Us",
-            desc: "Advanced infrastructure for high-traffic applications.",
+            desc: "Advanced infrastructure for high-traffic apps.",
             features: [
               "Dedicated Full-Stack Team",
-              "DevOps: CI/CD Pipeline Setup",
-              "Load Balancing & Auto-scaling",
-              "Database Replication & Sharding",
-              "99.99% Uptime SLA Guarantee",
-              "Penetration Testing (Security)",
-              "Real-time Dashboard Reporting",
+              "DevOps CI/CD Pipeline",
+              "Load Balancing Setup",
+              "99.99% Uptime SLA",
+              "Regular Security Audits",
             ],
             highlight: false,
           },
@@ -394,8 +346,8 @@ const CONTENT = {
 const ServicePage = () => {
   const { lang } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
-  const pricingRef = useRef<HTMLDivElement>(null); // Ref khusus untuk section Pricing
-  const cardsContainerRef = useRef<HTMLDivElement>(null); // Ref untuk animasi kartu
+  const pricingRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   const [activePlan, setActivePlan] = useState<"project" | "monthly">(
     "project"
@@ -403,69 +355,61 @@ const ServicePage = () => {
 
   const t = useMemo(() => (lang === "EN" ? CONTENT.EN : CONTENT.ID), [lang]);
 
-  // Generate Mailto Link
   const generateMailto = (packageName: string, price: string) => {
     const email = t.pricing.emailTarget;
-    let subject = "";
-    let body = "";
-
-    if (lang === "ID") {
-      subject = `Tanya Paket: ${packageName}`;
-      body = `Halo Tim Bagian,\n\nSaya tertarik dengan paket ${packageName} (${price}).\nBoleh dijelaskan lebih lanjut mengenai langkah selanjutnya?\n\nNama Saya: \nPerusahaan (Opsional): \n\nTerima kasih.`;
-    } else {
-      subject = `Inquiry: ${packageName} Plan`;
-      body = `Hello Bagian Team,\n\nI am interested in the ${packageName} plan (${price}).\nCould you please provide more details on the next steps?\n\nMy Name: \nCompany (Optional): \n\nThank you.`;
-    }
+    const subject =
+      lang === "ID"
+        ? `Tanya Paket: ${packageName}`
+        : `Inquiry: ${packageName} Plan`;
+    const body =
+      lang === "ID"
+        ? `Halo Tim Bagian,\n\nSaya tertarik dengan paket ${packageName} (${price}).\n\nNama Saya: `
+        : `Hello Bagian Team,\n\nI am interested in the ${packageName} plan (${price}).\n\nMy Name: `;
 
     return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Reveal Item Umum (Hero, Service, Process)
       gsap.from(".reveal-item", {
         y: 30,
         opacity: 0,
         duration: 0.8,
         stagger: 0.1,
         ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: containerRef.current, start: "top 80%" },
       });
 
-      // 2. Line Animation
       gsap.utils.toArray<HTMLElement>(".divider-line").forEach((line) => {
         gsap.from(line, {
           scaleX: 0,
           transformOrigin: "left",
           duration: 1,
           ease: "expo.out",
-          scrollTrigger: {
-            trigger: line,
-            start: "top 90%",
-          },
+          scrollTrigger: { trigger: line, start: "top 90%" },
         });
       });
 
-      // 3. PRICING REVEAL (Terpisah agar tidak kena delay stagger dari atas)
       gsap.from(".pricing-reveal", {
         y: 40,
         opacity: 0,
         duration: 0.8,
         stagger: 0.1,
         ease: "power2.out",
-        scrollTrigger: {
-          trigger: pricingRef.current, // Trigger khusus section pricing
-          start: "top 75%",
-        },
+        scrollTrigger: { trigger: pricingRef.current, start: "top 75%" },
+      });
+
+      gsap.from(".see-more-btn", {
+        scrollTrigger: { trigger: ".see-more-btn", start: "top 95%" },
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
       });
     }, containerRef);
     return () => ctx.revert();
   }, [lang]);
 
-  // Animasi saat Ganti Tab
   useEffect(() => {
     if (cardsContainerRef.current) {
       gsap.fromTo(
@@ -477,7 +421,7 @@ const ServicePage = () => {
           duration: 0.4,
           stagger: 0.1,
           ease: "power2.out",
-          overwrite: true, // Penting: Hentikan animasi sebelumnya
+          overwrite: true,
         }
       );
     }
@@ -489,7 +433,7 @@ const ServicePage = () => {
       className="bg-white text-black min-h-screen font-sans pb-20 relative"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pt-40 md:pt-48">
-        {/* --- HERO SECTION --- */}
+        {/* HERO */}
         <section className="mb-32">
           <span className="reveal-item inline-block px-3 py-1 border rounded-full text-[10px] font-mono uppercase tracking-widest mb-6 bg-white text-indigo-500 border-indigo-600">
             ● {t.hero.label}
@@ -502,7 +446,7 @@ const ServicePage = () => {
           </p>
         </section>
 
-        {/* --- SERVICES GRID --- */}
+        {/* SERVICES */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-12">
             <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
@@ -510,7 +454,6 @@ const ServicePage = () => {
             </span>
             <div className="divider-line h-[1px] bg-gray-200 flex-1"></div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {t.services.items.map((service, i) => (
               <div
@@ -523,13 +466,12 @@ const ServicePage = () => {
                   </span>
                   <CpuChipIcon className="w-6 h-6 text-gray-300 group-hover:text-black transition-colors" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 group-hover:underline decoration-1 underline-offset-4">
+                <h3 className="text-2xl font-bold mb-4 group-hover:underline underline-offset-4">
                   {service.title}
                 </h3>
                 <p className="text-gray-500 text-sm font-mono mb-8 h-12">
                   {service.desc}
                 </p>
-
                 <div className="flex flex-wrap gap-2">
                   {service.tech.map((tag, idx) => (
                     <span
@@ -545,7 +487,7 @@ const ServicePage = () => {
           </div>
         </section>
 
-        {/* --- PROCESS --- */}
+        {/* WORKFLOW */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-16">
             <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
@@ -553,7 +495,6 @@ const ServicePage = () => {
             </span>
             <div className="divider-line h-[1px] bg-gray-200 flex-1"></div>
           </div>
-
           <div className="relative">
             <div className="divider-line absolute top-[15px] left-0 w-full h-[1px] bg-gray-200 -z-10 hidden md:block"></div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
@@ -577,7 +518,7 @@ const ServicePage = () => {
           </div>
         </section>
 
-        {/* --- PRICING SECTION --- */}
+        {/* PRICING SECTION */}
         <section ref={pricingRef} className="mb-20">
           <div className="flex flex-col md:flex-row justify-between items-start mb-12">
             <div className="pricing-reveal">
@@ -628,7 +569,6 @@ const ServicePage = () => {
                 >
                   {plan.desc}
                 </p>
-
                 <ul className="flex-1 space-y-3 mb-8">
                   {plan.features.map((f: string, idx: number) => (
                     <li
@@ -650,7 +590,7 @@ const ServicePage = () => {
                       </svg>
                       <span
                         className={
-                          plan.highlight ? "text-gray-400" : "text-gray-500"
+                          plan.highlight ? "text-gray-300" : "text-gray-500"
                         }
                       >
                         {f}
@@ -658,7 +598,6 @@ const ServicePage = () => {
                     </li>
                   ))}
                 </ul>
-
                 <a
                   href={generateMailto(plan.name, plan.price)}
                   className={`block w-full py-4 text-center text-xs font-mono uppercase border transition-colors rounded-xl ${plan.highlight ? "bg-white text-black border-white hover:bg-gray-200" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
@@ -667,6 +606,29 @@ const ServicePage = () => {
                 </a>
               </div>
             ))}
+          </div>
+
+          {/* TOMBOL SEE MORE */}
+          <div className="see-more-btn mt-16 flex justify-center">
+            <Link
+              href="/pricing"
+              className="group flex items-center gap-4 px-10 py-4 bg-transparent border border-gray-300 rounded-full text-xs font-mono font-bold uppercase tracking-widest text-gray-600 hover:bg-black hover:text-white hover:border-black transition-all duration-300 cursor-pointer"
+            >
+              {t.pricing.seeMore}
+              <svg
+                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
         </section>
       </div>
