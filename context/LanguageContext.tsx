@@ -39,6 +39,7 @@ const translations = {
       services: "Layanan",
       work: "Proyek",
       contact: "Kontak",
+      pricing: "Harga",
     },
     projects: {
       title: "Proyek Pilihan",
@@ -152,6 +153,7 @@ const translations = {
       services: "Services",
       work: "Work",
       contact: "Contact",
+      pricing: "Pricing",
     },
     intro: {
       content:

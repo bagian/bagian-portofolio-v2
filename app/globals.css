@@ -71,3 +71,14 @@ body.no-scroll {
 .mask-container {
   clip-path: inset(0 0 0 0);
 }
+
+.prose p {
+  margin-top: 0 !important;
+  margin-bottom: 0.25rem !important; /* Beri sedikit jarak antar paragraf */
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

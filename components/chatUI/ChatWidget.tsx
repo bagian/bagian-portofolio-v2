@@ -1,5 +1,6 @@
 "use client";
 
+import ReactMarkdown from "react-markdown";
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import {
@@ -133,7 +134,7 @@ export default function ChatWidget() {
   }, [isOpen]);
 
   return (
-    <div className="fixed z-[9999] font-sans text-black">
+    <div className="fixed z-[99] font-sans text-black">
       <div
         ref={chatWindowRef}
         className={`
@@ -169,10 +170,6 @@ export default function ChatWidget() {
         {/* MESSAGES BODY (FIX SCROLL) */}
         <div
           ref={scrollRef}
-          // PERBAIKAN PENTING DI SINI:
-          // 1. data-lenis-prevent: Memberitahu Lenis Scroll untuk membiarkan div ini men-scroll sendiri.
-          // 2. onWheel stopPropagation: Mencegah event scroll naik ke parent (body).
-          // 3. overscroll-contain: Mencegah efek "bouncing" scroll halaman utama saat chat mentok.
           data-lenis-prevent="true"
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}
@@ -191,9 +188,7 @@ export default function ChatWidget() {
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`flex ${
-                m.role === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`max-w-[85%] md:max-w-[80%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
@@ -202,7 +197,19 @@ export default function ChatWidget() {
                     : "bg-white border border-gray-200 text-gray-800 rounded-tl-none"
                 }`}
               >
-                {m.content}
+                {m.role === "user" ? (
+                  m.content
+                ) : (
+                  <div
+                    className="prose prose-sm max-w-none 
+                        prose-p:m-0 prose-p:leading-relaxed 
+                        prose-ul:my-0 prose-li:my-0
+                        prose-headings:m-0
+                        whitespace-pre-wrap text-gray-800"
+                  >
+                    <ReactMarkdown>{m.content}</ReactMarkdown>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -212,7 +219,7 @@ export default function ChatWidget() {
               <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2">
                 <Loader2 size={16} className="animate-spin text-indigo-600" />
                 <span className="text-xs text-gray-400 font-mono">
-                  Mengetik...
+                  Thinking...
                 </span>
               </div>
             </div>
