@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig as Nextconfig } from "next";
+
+const nextConfig: Nextconfig = {
   images: {
     remotePatterns: [
       {
@@ -8,6 +10,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["gsap"],
 };
 
 module.exports = nextConfig;

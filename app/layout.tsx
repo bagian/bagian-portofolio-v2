@@ -9,6 +9,7 @@ import GlobalCursor from "@/components/GlobalCursor";
 import Preloader from "@/components/ui/Preloader";
 import { LoaderProvider } from "@/context/LoaderContext";
 import Script from "next/script";
+import ChatWidget from "@/components/chatUI/ChatWidget";
 
 // --- FONT CONFIGURATION ---
 const CabinetGrotesk = localFont({
@@ -167,7 +168,10 @@ export default function RootLayout({
             <SmoothScroll>
               <Navbar />
               <GlobalCursor />
-              <main>{children}</main>
+              <main>
+                <ChatWidget />
+                {children}
+              </main>
               <Footer />
             </SmoothScroll>
           </LanguageProvider>
