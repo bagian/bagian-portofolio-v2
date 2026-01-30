@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/context/LanguageContext";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -373,7 +374,6 @@ Thank you.`;
             </button>
           </div>
         </div>
-
         {/* --- CARDS GRID --- */}
         <div
           ref={cardsContainerRef}

@@ -204,7 +204,7 @@ const FooterCTA = () => {
             {content.cta.subtitle}
           </p>
           <div className="cta-anim">
-            <a
+            <Link
               href={`mailto:${content.footer.email}`}
               className="group relative inline-flex items-center justify-center md:px-10 md:py-5 px-7 py-4 bg-white text-black rounded-full overflow-hidden transition-all hover:bg-gray-200"
             >
@@ -224,7 +224,7 @@ const FooterCTA = () => {
                   />
                 </svg>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
 

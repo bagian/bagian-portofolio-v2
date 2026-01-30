@@ -142,7 +142,6 @@ const Hero = () => {
           backgroundSize: "40px 40px",
         }}
       ></div>
-
       {/* ============================================================
           LARGE WIDGETS (POSISI ABSOLUTE - 4 SUDUT)
          ============================================================ */}
@@ -330,12 +329,10 @@ const Hero = () => {
       <div className="relative z-30 flex flex-col items-center text-center w-full xl:max-w-7xl px-4 md:px-6">
         <h1 className="text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight font-medium text-[#1A1A1A] mb-6 max-w-4xl mx-auto">
           <div className="overflow-hidden inline-block">
-            <span className="hero-title-char inline-block">
-              Crafting &nbsp;
-            </span>
+            <span className="hero-title-char inline-block">Crafting&nbsp;</span>
           </div>
           <div className="overflow-hidden inline-block">
-            <span className="hero-title-char inline-block">Digital &nbsp;</span>
+            <span className="hero-title-char inline-block">Digital&nbsp;</span>
           </div>
           <div className="overflow-hidden inline-block">
             <span className="hero-title-char inline-block">Excellence</span>
@@ -529,7 +526,7 @@ const Hero = () => {
                     </span>
                   </div>
                   <div className="flex items-end justify-between h-16 gap-1">
-                    {[40, 65, 30, 80, 55, 90, 45, 70, 100, 60, 85, 50].map(
+                    {[40, 65, 20, 80, 55, 90, 45, 70, 120, 60, 85, 50].map(
                       (h, i) => (
                         <div
                           key={i}
@@ -537,7 +534,7 @@ const Hero = () => {
                           style={{ height: `${h}%` }}
                         >
                           <div
-                            className="absolute bottom-0 left-0 w-full bg-gray-900 transition-all duration-1000 ease-out"
+                            className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-slate-50 to-indigo-400 ransition-all duration-1000 ease-out"
                             style={{
                               height: "0%",
                               animation: `fillHeight 1s forwards ${i * 0.1}s`,

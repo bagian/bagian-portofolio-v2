@@ -262,7 +262,7 @@ const Navbar = () => {
               href="mailto:hello@bagian.com"
               className="text-sm md:text-lg font-bold text-black border-b border-black pb-0.5 w-fit"
             >
-              hello@bagian.com
+              hello@bagian.web.id
             </a>
           </div>
 
