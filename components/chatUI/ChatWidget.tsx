@@ -140,8 +140,8 @@ export default function ChatWidget() {
         className={`
             hidden flex-col bg-white overflow-hidden shadow-2xl
             fixed
-            inset-0 w-full h-full rounded-none
-            md:inset-auto md:bottom-6 md:right-6 
+            bottom-20 right-2 left-2 w-auto h-[80vh] max-h-[500px] rounded-2xl
+            md:inset-auto md:bottom-24 md:right-6 
             md:w-[380px] md:h-[600px] md:max-h-[85vh] 
             md:rounded-2xl md:border md:border-gray-200
         `}
