@@ -50,7 +50,7 @@ export default function ChatWidget() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages.slice(-6) }),
       });
 
       if (!response.ok) throw new Error("Gagal mengambil respon");
@@ -202,10 +202,10 @@ export default function ChatWidget() {
                 ) : (
                   <div
                     className="prose prose-sm max-w-none 
-                        prose-p:m-0 prose-p:leading-relaxed 
-                        prose-ul:my-0 prose-li:my-0
-                        prose-headings:m-0
-                        whitespace-pre-wrap text-gray-800"
+                    prose-p:my-0.5 prose-p:leading-normal
+                    prose-ul:my-1 prose-li:my-0
+                    prose-headings:mt-2 prose-headings:mb-0
+                    text-gray-800"
                   >
                     <ReactMarkdown>{m.content}</ReactMarkdown>
                   </div>
@@ -218,8 +218,19 @@ export default function ChatWidget() {
             <div className="flex justify-start">
               <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2">
                 <Loader2 size={16} className="animate-spin text-indigo-600" />
-                <span className="text-xs text-gray-400 font-mono">
-                  Thinking...
+                <span className="text-xs text-gray-400 font-mono flex items-center">
+                  Thinking
+                  <span className="flex ml-1">
+                    <span className="animate-[bounce_1s_infinite_0ms] font-bold">
+                      .
+                    </span>
+                    <span className="animate-[bounce_1s_infinite_200ms] font-bold">
+                      .
+                    </span>
+                    <span className="animate-[bounce_1s_infinite_400ms] font-bold">
+                      .
+                    </span>
+                  </span>
                 </span>
               </div>
             </div>
