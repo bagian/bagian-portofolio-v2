@@ -54,8 +54,6 @@ export async function POST(req: Request) {
     })) as { data: Document[] | null };
 
     const context = documents?.map((doc) => doc.content).join("\n") || "";
-
-    // --- PENAMBAHAN DELAY ---
     const delay = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -63,16 +61,10 @@ export async function POST(req: Request) {
 
     // 3. GENERATING ANSWER
     const result = await streamText({
+      // MENGGUNAKAN MODEL HEMAT (Instant)
       model: groq("llama-3.1-8b-instant"),
       messages: limitedMessages,
       temperature: 0.2,
-      maxTokens: 500, // Tambahkan limit di level atas
-
-      providerOptions: {
-        groq: {
-          max_tokens: 500,
-        },
-      },
 
       system: `Kamu adalah "Bagian AI", Senior Sales Consultant dari Bagian Corps.
 
@@ -168,9 +160,6 @@ export async function POST(req: Request) {
     return response;
   } catch (err: unknown) {
     console.error("ERROR DETECTED:", err);
-
-    // --- LOGIKA HANDLING LIMIT ---
-    // Mengubah error menjadi pesan ramah yang muncul di chat bubble
     const errString = JSON.stringify(err).toLowerCase();
     const isRateLimit =
       errString.includes("429") ||
@@ -180,7 +169,7 @@ export async function POST(req: Request) {
       return new Response(
         "Maaf Kak, saat ini layanan Bagian AI sedang sangat sibuk karena banyaknya permintaan (Rate Limit). Mohon tunggu sebentar atau hubungi tim kami langsung via WhatsApp ya! 🙏",
         {
-          status: 200, // Tetap 200 agar gelembung chat muncul di frontend
+          status: 200,
           headers: { "Content-Type": "text/plain" },
         }
       );
