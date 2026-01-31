@@ -1,6 +1,21 @@
 User-agent: *
-
 Allow: /
+
+# Blokir ChatGPT (OpenAI)
+User-agent: GPTBot
+Disallow: /
+
+# Blokir Google AI (Gemini/Bard Training)
+User-agent: Google-Extended
+Disallow: /
+
+# Blokir Common Crawl (Data set umum untuk AI)
+User-agent: CCBot
+Disallow: /
+
+# Blokir Anthropic (Claude)
+User-agent: anthropic-ai
+Disallow: /
 
 Disallow: /_next/
 Disallow: /static/

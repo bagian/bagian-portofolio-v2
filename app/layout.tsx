@@ -89,6 +89,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
+      { url: "/images/logo/logo.png", href: "/images/logo/logo.png" },
       { url: "/favicon.ico?v=2", type: "image/x-icon" },
       { url: "/favicon-16x16.png?v=2", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png?v=2", sizes: "32x32", type: "image/png" },
@@ -132,10 +133,45 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService", // atau "LocalBusiness"
+              name: "Bagian Corps",
+              image: "https://bagian.web.id/images/logo/logo.png",
+              description:
+                "Software House terpercaya di Sidoarjo melayani pembuatan Website, Aplikasi Custom, dan UI/UX Design.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Sidoarjo",
+                addressRegion: "Jawa Timur",
+                addressCountry: "ID",
+              },
+              priceRange: "Rp 4.850.000 - Rp 15.000.000",
+              telephone: "+6285174295981",
+              url: "https://bagian.web.id",
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                  ],
+                  opens: "10:00",
+                  closes: "17:00",
+                },
+              ],
+            }),
+          }}
+        />
         {GA_ID && (
           <>
             <Script
