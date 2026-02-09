@@ -134,21 +134,19 @@ const FooterCTA = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 70%", // Trigger sedikit lebih awal
+          start: "top 90%",
+          once: true,
         },
       });
-
-      // 1. Animasi Bagian CTA (Atas)
       tl.from(".cta-anim", {
         y: 60,
         opacity: 0,
         duration: 1,
         stagger: 0.15,
         ease: "power3.out",
-        clearProps: "all", // PENTING: Menghapus properti inline setelah animasi selesai agar tidak ada konflik CSS
+        clearProps: "all",
+        immediateRender: false,
       });
-
-      // 2. Animasi Divider Line
       tl.from(
         ".footer-divider",
         {
@@ -156,11 +154,10 @@ const FooterCTA = () => {
           transformOrigin: "left center",
           duration: 1.2,
           ease: "expo.out",
+          immediateRender: false,
         },
         "-=0.5"
       );
-
-      // 3. Animasi Bagian Footer Bawah (Kolom)
       tl.from(
         ".footer-anim",
         {
@@ -170,6 +167,7 @@ const FooterCTA = () => {
           stagger: 0.1,
           ease: "power2.out",
           clearProps: "all",
+          immediateRender: false,
         },
         "-=0.8"
       );
@@ -182,7 +180,6 @@ const FooterCTA = () => {
       ref={containerRef}
       className="w-full bg-[#111] text-white pt-24 pb-12 px-4  relative"
     >
-      {/* Grid Overlay Decoration */}
       <div
         className="absolute inset-0 opacity-[0.05] pointer-events-none z-0"
         style={{
@@ -193,7 +190,6 @@ const FooterCTA = () => {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10 p-3">
-        {/* === BAGIAN 1: CTA (CENTERED) === */}
         <div className="flex flex-col items-center text-center mb-20">
           <div className="cta-anim mb-8">
             <span className="inline-flex items-center px-4 py-1.5 border border-gray-800 rounded-full text-[10px] font-mono uppercase tracking-widest text-gray-400 bg-[#1A1A1A]">

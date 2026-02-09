@@ -9,11 +9,13 @@ import Process from "@/components/home/Process";
 import ClientLogs from "@/components/home/ClientLogs";
 import FAQ from "@/components/home/Faq";
 import Pricing from "@/components/home/Pricing";
+import WhyChooseUs from "@/components/home/WhyChoose";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <WhyChooseUs />
       <Intro />
       <Services />
       <ClientLogs />
