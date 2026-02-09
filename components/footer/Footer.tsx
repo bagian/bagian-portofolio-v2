@@ -63,7 +63,7 @@ const localTranslations = {
       email: "bagian.desk@bagian.com",
       location: "Surabaya, East Java, IDN ",
       Wa: "+62 851 7429 5981",
-      copy: "© 2026 BAGIAN. Hak Cipta Dilindungi.",
+      copy: "© 2022 - 2026 BAGIAN. Hak Cipta Dilindungi.",
     },
   },
   EN: {
@@ -119,7 +119,7 @@ const localTranslations = {
       email: "bagian.desk@bagian.com",
       location: "Surabaya, East Java, IDN ",
       Wa: "+62 851 7429 5981",
-      copy: "© 2026 BAGIAN. All Rights Reserved.",
+      copy: "© 2022 - 2026 BAGIAN. All Rights Reserved.",
     },
   },
 };
