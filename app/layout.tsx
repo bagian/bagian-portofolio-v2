@@ -10,6 +10,8 @@ import GlobalCursor from "@/components/GlobalCursor";
 import { LoaderProvider } from "@/context/LoaderContext";
 import Script from "next/script";
 import ChatWidget from "@/components/chatUI/ChatWidget";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // --- FONT CONFIGURATION ---
 const CabinetGrotesk = localFont({
@@ -207,6 +209,8 @@ export default function RootLayout({
               <main>
                 <ChatWidget />
                 {children}
+                <Analytics />
+                <SpeedInsights />
               </main>
               <Footer />
             </SmoothScroll>
