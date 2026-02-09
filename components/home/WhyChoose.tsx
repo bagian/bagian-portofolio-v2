@@ -196,19 +196,6 @@ const WhyChooseUs = () => {
             </div>
           ))}
         </div>
-
-        {/* BOTTOM DECORATION */}
-        <div className="mt-24 pt-12 border-t border-gray-100 why-footer-line hidden md:flex-row justify-between items-center gap-6 opacity-40">
-          <p className="text-[10px] why-footer-text font-mono uppercase tracking-[0.3em] text-indigo-500">
-            Built for scale
-          </p>
-          <p className="text-[10px] why-footer-text font-mono uppercase tracking-[0.3em] text-indigo-500">
-            Driven by excellence
-          </p>
-          <p className="text-[10px] why-footer-text font-mono uppercase tracking-[0.3em] text-indigo-500">
-            Focus on results
-          </p>
-        </div>
       </div>
     </section>
   );
