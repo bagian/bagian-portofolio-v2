@@ -82,3 +82,12 @@ body.no-scroll {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
+
+.hero-title-char,
+.hero-sub,
+.hero-btn,
+.main-dashboard,
+.dash-item,
+.large-widget {
+  opacity: 0;
+}

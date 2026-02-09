@@ -27,6 +27,8 @@ const localTranslations = {
         { label: "Proyek", href: "/work" },
         { label: "Tentang", href: "/about" },
         { label: "Kontak", href: "/contact" },
+        { label: "Syarat & Ketentuan", href: "/terms" },
+        { label: "Kebijakan Privasi", href: "/privacy" },
       ],
       social_title: "Sosial",
       social_items: [
@@ -59,7 +61,8 @@ const localTranslations = {
       ],
       contact_title: "Kontak",
       email: "bagian.desk@bagian.com",
-      location: "Surabaya, IDN",
+      location: "Surabaya, East Java, IDN ",
+      Wa: "+62 851 7429 5981",
       copy: "© 2026 BAGIAN. Hak Cipta Dilindungi.",
     },
   },
@@ -80,6 +83,8 @@ const localTranslations = {
         { label: "Work", href: "/work" },
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
+        { label: "Term & Conditions", href: "/terms" },
+        { label: "Privacy Policy", href: "/privacy" },
       ],
       social_title: "Socials",
       social_items: [
@@ -112,7 +117,8 @@ const localTranslations = {
       ],
       contact_title: "Contact",
       email: "bagian.desk@bagian.com",
-      location: "Surabaya, IDN",
+      location: "Surabaya, East Java, IDN ",
+      Wa: "+62 851 7429 5981",
       copy: "© 2026 BAGIAN. All Rights Reserved.",
     },
   },
@@ -357,6 +363,9 @@ const FooterCTA = () => {
               </a>
               <span className="text-sm text-gray-500">
                 {content.footer.location}
+              </span>
+              <span className="text-sm text-gray-500">
+                WhatsApp {content.footer.Wa}
               </span>
             </div>
           </div>

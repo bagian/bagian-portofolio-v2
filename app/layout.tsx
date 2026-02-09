@@ -12,6 +12,7 @@ import Script from "next/script";
 import ChatWidget from "@/components/chatUI/ChatWidget";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import WelcomeModal from "@/components/WelcomeModal";
 
 // --- FONT CONFIGURATION ---
 const CabinetGrotesk = localFont({
@@ -203,6 +204,7 @@ export default function RootLayout({
         <LoaderProvider>
           {/* <Preloader /> */}
           <LanguageProvider>
+            <WelcomeModal />
             <SmoothScroll>
               <Navbar />
               <GlobalCursor />
