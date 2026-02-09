@@ -30,7 +30,7 @@ const CONTENT = {
       email: "Jalur Email",
       phone: "Jalur Suara",
       office: "Markas Operasional",
-      office_desc: "Sidoarjo, Jawa Timur, ID",
+      office_desc: "Surabaya, Jawa Timur, ID",
     },
     form: {
       name: "Identitas Pengirim",
@@ -51,6 +51,7 @@ const CONTENT = {
       "Aplikasi Website",
       "Maintenance",
       "Production",
+      "Lainnya",
     ],
   },
   EN: {
@@ -61,7 +62,7 @@ const CONTENT = {
       email: "Email Channel",
       phone: "Voice Channel",
       office: "Base of Operations",
-      office_desc: "Sidoarjo, East Java, ID",
+      office_desc: "Surabaya, East Java, ID",
     },
     form: {
       name: "Sender Identity",
@@ -82,6 +83,7 @@ const CONTENT = {
       "Web Application",
       "Maintenance",
       "Production",
+      "Other",
     ],
   },
 };
@@ -356,7 +358,7 @@ const ContactContent = () => {
                   href="https://wa.me/6281234567890"
                   className="text-lg font-medium hover:underline decoration-1 underline-offset-4"
                 >
-                  +62 812 3456 7890
+                  +62 851 74295 981
                 </a>
               </div>
             </div>
