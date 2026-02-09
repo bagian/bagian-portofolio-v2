@@ -6,7 +6,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import SmoothScroll from "@/components/lib/SmoothScroll";
 import GlobalCursor from "@/components/GlobalCursor";
-import Preloader from "@/components/ui/Preloader";
+// import Preloader from "@/components/ui/Preloader";
 import { LoaderProvider } from "@/context/LoaderContext";
 import Script from "next/script";
 import ChatWidget from "@/components/chatUI/ChatWidget";
@@ -199,7 +199,7 @@ export default function RootLayout({
         className={`${CabinetGrotesk.variable} ${ArrayFont.variable} antialiased overflow-x-hidden lg:cursor-none`}
       >
         <LoaderProvider>
-          <Preloader />
+          {/* <Preloader /> */}
           <LanguageProvider>
             <SmoothScroll>
               <Navbar />

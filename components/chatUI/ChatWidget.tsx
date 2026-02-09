@@ -167,12 +167,12 @@ export default function ChatWidget() {
           </button>
         </div>
 
-        {/* MESSAGES BODY (FIX SCROLL) */}
+        {/* MESSAGES BODY */}
         <div
           ref={scrollRef}
           data-lenis-prevent="true"
           onWheel={(e) => e.stopPropagation()}
-          onTouchMove={(e) => e.stopPropagation()}
+          onWheelCapture={(e) => e.stopPropagation()}
           className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA] min-h-0 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent overscroll-contain"
         >
           {messages.length === 0 && (
@@ -268,24 +268,34 @@ export default function ChatWidget() {
         </form>
       </div>
 
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`
-            fixed bottom-6 right-6 z-50
-            w-14 h-14 bg-black text-white rounded-full 
-            shadow-[0_4px_14px_0_rgba(0,0,0,0.39)] 
-            flex items-center justify-center 
-            hover:scale-105 active:scale-95 
-            transition-all duration-300 ease-in-out
-            ${
-              isOpen
-                ? "scale-0 opacity-0 pointer-events-none"
-                : "scale-100 opacity-100"
-            }
-        `}
+      {/* FLOATING BUTTON + TEXT */}
+      <div
+        className={`fixed bottom-6 right-6 flex flex-col items-end transition-all duration-300 ${
+          isOpen
+            ? "scale-0 opacity-0 pointer-events-none"
+            : "scale-100 opacity-100"
+        }`}
       >
-        <MessageCircle size={26} />
-      </button>
+        <div className="mb-2 bg-white px-3 py-1.5 rounded-lg shadow-lg border border-gray-100 animate-bounce">
+          <p className="text-[11px] md:text-xs font-bold text-gray-700 whitespace-nowrap">
+            Chat with Agent
+          </p>
+          {/* Arrow tooltip */}
+          <div className="absolute -bottom-1 right-5 w-2 h-2 bg-white border-r border-b border-gray-100 rotate-45"></div>
+        </div>
+        <button
+          onClick={() => setIsOpen(true)}
+          className={`
+              w-14 h-14 bg-black text-white rounded-full 
+              shadow-[0_4px_14px_0_rgba(0,0,0,0.39)] 
+              flex items-center justify-center 
+              hover:scale-105 active:scale-95 
+              transition-all duration-300 ease-in-out
+          `}
+        >
+          <MessageCircle size={26} />
+        </button>
+      </div>
     </div>
   );
 }

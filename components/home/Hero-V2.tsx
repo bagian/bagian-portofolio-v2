@@ -15,7 +15,6 @@ const Hero = () => {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Timeline tetap paused agar kita bisa memicunya di useEffect secara presisi
       const tl = gsap.timeline({ paused: true });
 
       // --- 1. TEXT ENTRY ---
@@ -63,6 +62,7 @@ const Hero = () => {
       );
 
       // --- 3. DASHBOARD ITEMS ENTRY (Staggered) ---
+      // Menganimasikan item didalam dashboard (termasuk yang baru)
       tl.from(
         ".dash-item",
         {
@@ -105,6 +105,10 @@ const Hero = () => {
         });
       };
 
+      // Dashboard Utama
+      // floatAnim(".main-dashboard-container", -10, 6, 0);
+
+      // Widget Besar (4 Sudut)
       floatAnim(".widget-pipeline", -15, 5, 0.5);
       floatAnim(".widget-logs", 15, 5.5, 1);
       floatAnim(".widget-cdn", -12, 4.5, 1.5);
@@ -116,15 +120,13 @@ const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  // Perbaikan Timing: Animasi langsung berjalan setelah komponen di-mount
   useEffect(() => {
-    if (tlRef.current) {
-      // Memberikan jeda sangat singkat agar browser selesai merender frame pertama
-      gsap.delayedCall(0.1, () => {
+    if (isTransitioning && tlRef.current) {
+      gsap.delayedCall(0.2, () => {
         tlRef.current?.play();
       });
     }
-  }, []);
+  }, [isTransitioning]);
 
   return (
     <section
@@ -140,6 +142,9 @@ const Hero = () => {
           backgroundSize: "40px 40px",
         }}
       ></div>
+      {/* ============================================================
+          LARGE WIDGETS (POSISI ABSOLUTE - 4 SUDUT)
+         ============================================================ */}
 
       {/* 1. KIRI ATAS: CI/CD PIPELINE */}
       <div className="large-widget widget-pipeline absolute top-[14rem] left-[5%] hidden xl:block z-10">
@@ -370,6 +375,7 @@ const Hero = () => {
 
             {/* Dashboard Body Grid */}
             <div className="p-4 md:p-6 bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 text-left">
+              {/* [EXISTING] LEFT COL: CODE EDITOR */}
               <div className="dash-item col-span-1 md:col-span-7 bg-white rounded-lg border border-gray-200 shadow-sm p-5 flex flex-col h-full min-h-[280px]">
                 <div className="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
                   <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500">
@@ -471,6 +477,7 @@ const Hero = () => {
                 </div>
               </div>
 
+              {/* [EXISTING] RIGHT COL: STATUS & TRAFFIC */}
               <div className="col-span-1 md:col-span-5 flex flex-col gap-4 md:gap-6">
                 <div className="dash-item bg-white rounded-lg border border-gray-200 shadow-sm p-5 flex-1">
                   <div className="flex justify-between items-start mb-4">
@@ -547,8 +554,11 @@ const Hero = () => {
                 </div>
               </div>
 
+              {/* [NEW] BOTTOM ROW: INFRASTRUCTURE METRICS (Span 12) */}
+              {/* Ini adalah komponen baru yang ditambahkan di dalam dashboard */}
               <div className="dash-item col-span-1 md:col-span-12 bg-white rounded-lg border border-gray-200 shadow-sm p-4">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px]">
+                  {/* Item 1: Database */}
                   <div className="flex items-center gap-3 w-full md:w-1/3 p-2 md:p-0 bg-gray-50 md:bg-transparent rounded-md">
                     <div className="p-1.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100">
                       <svg
@@ -581,6 +591,7 @@ const Hero = () => {
 
                   <div className="hidden md:block w-px h-8 bg-gray-100"></div>
 
+                  {/* Item 2: Redis Cache */}
                   <div className="flex items-center gap-3 w-full md:w-1/3 p-2 md:p-0 bg-gray-50 md:bg-transparent rounded-md">
                     <div className="p-1.5 bg-red-50 rounded text-red-600 border border-red-100">
                       <svg
@@ -612,6 +623,7 @@ const Hero = () => {
 
                   <div className="hidden md:block w-px h-8 bg-gray-100"></div>
 
+                  {/* Item 3: System Resources */}
                   <div className="flex flex-col gap-2 w-full md:w-1/3 p-2 md:p-0 bg-gray-50 md:bg-transparent rounded-md">
                     <div className="flex items-center justify-between">
                       <span className="text-[9px] font-mono text-gray-400 uppercase">
@@ -635,6 +647,8 @@ const Hero = () => {
                 </div>
               </div>
             </div>
+
+            {/* Overlay Gradient */}
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-50"></div>
           </div>
         </div>
