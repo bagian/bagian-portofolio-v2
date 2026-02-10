@@ -64,7 +64,7 @@ const localTranslations = {
       monthly: [
         {
           name: "Basic Maintenance",
-          price: "IDR 600.000.000 / bln",
+          price: "IDR 600.000 / bln",
           desc: "Menjaga aset digital tetap hidup, aman, dan mutakhir.",
           features: [
             "Update Core & Security",
@@ -77,7 +77,7 @@ const localTranslations = {
         },
         {
           name: "IT Partner (Dedicated)",
-          price: "IDR 2.550.000.000 / bln",
+          price: "IDR 2.550.000 / bln",
           desc: "Tim teknis pribadi Anda untuk solusi proaktif bisnis.",
           features: [
             "Semua Fitur Basic",
@@ -157,7 +157,7 @@ const localTranslations = {
       monthly: [
         {
           name: "Basic Maintenance",
-          price: "IDR 600.000.000 / mo",
+          price: "IDR 600.000 / mo",
           desc: "Keep your digital assets alive and secure.",
           features: [
             "Core & Security Updates",
@@ -170,7 +170,7 @@ const localTranslations = {
         },
         {
           name: "IT Partner (Dedicated)",
-          price: "IDR 2.550.000.000 / mo",
+          price: "IDR 2.550.000 / mo",
           desc: "Your personal tech team for growth solutions.",
           features: [
             "All Basic Features",
