@@ -16,12 +16,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Refs untuk Mobile Menu Animation
   const containerRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
 
-  // --- 1. SETUP ANIMASI (KHUSUS MOBILE & TABLET) ---
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -33,21 +31,17 @@ const Navbar = () => {
           });
         },
       });
-
-      // Setup Initial State
       gsap.set(sidebarRef.current, {
-        yPercent: -100, // Slide dari atas
+        yPercent: -100,
         display: "none",
         visibility: "hidden",
       });
 
-      // Setup elemen animasi internal
       gsap.set(".mobile-link-text", { y: 50, opacity: 0 });
       gsap.set(".mobile-footer", { y: 20, opacity: 0 });
 
-      // Animasi Buka
       tl.to(sidebarRef.current, {
-        display: "flex", // Flex agar layouting bekerja
+        display: "flex",
         visibility: "visible",
         duration: 0,
       })
@@ -84,7 +78,6 @@ const Navbar = () => {
     return () => ctx.revert();
   }, []);
 
-  // --- 2. KONTROL SCROLL ---
   useEffect(() => {
     const customWindow = window as unknown as CustomWindow;
     const lenis = customWindow.lenis;
@@ -106,8 +99,6 @@ const Navbar = () => {
 
   return (
     <div ref={containerRef}>
-      {/* ================= NAVBAR BAR (STICKY) ================= */}
-      {/* Menggunakan lg:px-12 untuk padding desktop/tablet besar */}
       <nav
         className={`fixed top-0 left-0 w-full z-[1002] flex justify-between items-center px-6 py-6 lg:px-12 transition-all duration-300 font-array ${
           isOpen
@@ -116,7 +107,6 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center gap-6 max-w-7xl justify-between mx-auto w-full">
-          {/* 1. LOGO */}
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
@@ -124,8 +114,6 @@ const Navbar = () => {
           >
             BAGIAN.
           </Link>
-          {/* 2. DESKTOP MENU (Hidden on Mobile & Tablet) */}
-          {/* Menggunakan lg:flex (bukan md:flex) agar Tablet menampilkan Hamburger */}
           <div className="hidden lg:flex items-center gap-10">
             {Object.entries(t.navbar).map(([key, value]) => {
               const href = key === "home" ? "/" : `/${key}`;
@@ -145,10 +133,7 @@ const Navbar = () => {
               );
             })}
           </div>
-
-          {/* 3. RIGHT ACTIONS */}
           <div className="flex items-center gap-6 z-[1003]">
-            {/* Lang Switcher (Desktop Only - dipindah ke footer di mobile/tablet) */}
             <div className="hidden lg:flex items-center gap-2 text-[10px] font-mono font-bold tracking-widest">
               <button
                 onClick={() => setLang("ID")}
@@ -160,7 +145,6 @@ const Navbar = () => {
               >
                 ID
               </button>
-              {/* <span className="text-gray-900 text-[15px]">/</span> */}
               <button
                 onClick={() => setLang("EN")}
                 className={`transition-colors ${
@@ -172,17 +156,12 @@ const Navbar = () => {
                 EN
               </button>
             </div>
-
-            {/* Contact Button (Desktop Only - lg:block) */}
             <Link
-              href="/contact"
+              href="https://customers.bagian.web.id/"
               className="hidden lg:block px-8 py-3 bg-black text-white text-[11px] font-mono font-bold uppercase tracking-widest hover:bg-indigo-600 transition-colors rounded-full"
             >
-              Let&apos;s Talk
+              Login
             </Link>
-
-            {/* TOMBOL MENU / CLOSE (MOBILE & TABLET) */}
-            {/* Muncul di lg:hidden (dibawah 1024px) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden group flex items-center gap-3 focus:outline-none cursor-pointer"
