@@ -214,9 +214,8 @@ export async function POST(req: Request) {
         4. Keuntungan Perpanjang: Menjamin keamanan data, kecepatan server tetap optimal, dan bantuan teknis prioritas.
 
         REGISTER AKUN
-        - Berikan penjelasan untuk melakukan register akun dengan cara melalui website customer.bagian.web.id.
+        - Berikan penjelasan untuk melakukan register akun dengan cara melalui website customers.bagian.web.id.
         - Berikan link yang bisa di klik.
-        - Jika website itu belum ada berikan notifikasi dengan perkataan maaf bahwa website itu masih dalam tahap pengembangan.
         - Berikan kontak bagian sebagai gantinya jika website itu tidak bisa diakses.
 
         INSTRUKSI EFISIENSI (HEMAT TOKEN):
