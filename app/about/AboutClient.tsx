@@ -16,6 +16,8 @@ import {
   CpuChipIcon,
   CodeBracketIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { link } from "fs";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,23 +38,24 @@ const CONTENT = {
         "Kami tidak hanya menulis kode. Kami menulis masa depan bisnis Anda.",
     },
     stats: [
-      { number: "05+", label: "Tahun Pengalaman" }, // Added 0 padding style
-      { number: "100+", label: "Proyek Selesai" },
-      { number: "25+", label: "Klien Partner" },
+      { number: "3+", label: "Tahun Pengalaman" }, // Added 0 padding style
+      { number: "5+", label: "Proyek Selesai" },
+      { number: "5+", label: "Klien Partner" },
       { number: "100%", label: "Dedikasi" },
     ],
     clients: {
       title: "Log Klien",
       logos: [
-        "TechCorp",
-        "IndoRetail",
-        "GlobalLogistics",
-        "CreativeSpace",
-        "FinTech Asia",
-        "HealthPlus",
-        "AgroFuture",
-        "BuildIt",
-        "SmartHome",
+        "Kinaya Interior Design",
+        "YellowKost & Partner",
+        "Lentera Fajar Indonesia",
+        "Rahayu Transport",
+        "KAI Wisata",
+        "Kinaya Interior Design",
+        "YellowKost & Partner",
+        "Lentera Fajar Indonesia",
+        "Rahayu Transport",
+        "KAI Wisata",
       ],
     },
     process: {
@@ -122,27 +125,15 @@ const CONTENT = {
       members: [
         {
           name: "Gilang Ramadhan",
-          role: "Founder & CEO",
-          image:
-            "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
+          role: "Founder, CEO & Frontend Developer",
+          link: "https://www.linkedin.com/in/gilang-ramaddhann/",
+          image: "/images/profiles/pf_gilang_ramadhan.webp",
         },
         {
-          name: "Sarah Wijaya",
-          role: "Lead Designer",
-          image:
-            "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-          name: "Budi Santoso",
-          role: "Senior Engineer",
-          image:
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-          name: "Linda Kusuma",
-          role: "Project Manager",
-          image:
-            "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
+          name: "M. Aprilandi Nanu",
+          role: "Back End Engineer, Database Engineer",
+          link: "https://www.linkedin.com/in/aprilandi-nanu-2b3037258/",
+          image: "/images/profiles/pf_aprilandi_nanu.webp",
         },
       ],
     },
@@ -165,9 +156,9 @@ const CONTENT = {
       quote: "We don't just write code. We write the future of your business.",
     },
     stats: [
-      { number: "05+", label: "Years Experience" },
-      { number: "100+", label: "Projects Done" },
-      { number: "25+", label: "Client Partners" },
+      { number: "3+", label: "Years Experience" },
+      { number: "5+", label: "Projects Done" },
+      { number: "5+", label: "Client Partners" },
       { number: "100%", label: "Dedication" },
     ],
     clients: {
@@ -176,10 +167,12 @@ const CONTENT = {
         "Kinaya Interior Design",
         "YellowKost & Partner",
         "Lentera Fajar Indonesia",
+        "Rahayu Transport",
         "KAI Wisata",
         "Kinaya Interior Design",
         "YellowKost & Partner",
         "Lentera Fajar Indonesia",
+        "Rahayu Transport",
         "KAI Wisata",
       ],
     },
@@ -250,27 +243,15 @@ const CONTENT = {
       members: [
         {
           name: "Gilang Ramadhan",
-          role: "Founder & CEO",
-          image:
-            "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
+          role: "Founder, CEO & Frontend Developer",
+          link: "https://www.linkedin.com/in/gilang-ramaddhann/",
+          image: "/images/profiles/pf_gilang_ramadhan.webp",
         },
         {
-          name: "Sarah Wijaya",
-          role: "Lead Designer",
-          image:
-            "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-          name: "Budi Santoso",
-          role: "Senior Engineer",
-          image:
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-          name: "Linda Kusuma",
-          role: "Project Manager",
-          image:
-            "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
+          name: "M. Aprilandi Nanu",
+          role: "Backend Engineer, Database Engineer",
+          link: "https://www.linkedin.com/in/aprilandi-nanu-2b3037258/",
+          image: "/images/profiles/pf_aprilandi_nanu.webp",
         },
       ],
     },
@@ -336,7 +317,7 @@ const AboutContent = () => {
         gsap.to(marqueeRef.current, {
           xPercent: -50,
           repeat: -1,
-          duration: 40,
+          duration: 90,
           ease: "linear",
           force3D: true,
         });
@@ -555,7 +536,6 @@ const AboutContent = () => {
       {/* --- TEAM SECTION (File Folder Style) --- */}
       <section className="team-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
         <div className="mb-16 flex items-center gap-4">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
           <h2 className="text-3xl md:text-5xl font-medium text-black">
             {t.team.title}
           </h2>
@@ -567,7 +547,7 @@ const AboutContent = () => {
               key={idx}
               className="team-card group border border-gray-200 bg-white p-4 rounded-xl"
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 mb-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 rounded-lg">
+              <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 mb-4  rounded-lg">
                 <Image
                   src={member.image}
                   alt={member.name}
@@ -583,6 +563,15 @@ const AboutContent = () => {
                 <p className="text-[10px] font-mono text-gray-500 uppercase mt-1">
                   {member.role}
                 </p>
+                {member.link && (
+                  <Link
+                    href={member.link}
+                    target="_blank"
+                    className="text-[10px] font-mono text-gray-500 hover:text-blue-500 hover:underline transition-colors uppercase"
+                  >
+                    <span className="mt-10 inline-block">LinkedIn</span>
+                  </Link>
+                )}
               </div>
             </div>
           ))}
