@@ -1,32 +1,46 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/context/LanguageContext";
+import { PROJECTS } from "@/constant/projects";
+import ProjectMockup from "@/components/work/ProjectMockup";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CONTENT = {
+  ID: {
+    archive: "/archive_2024-2026",
+    title: "Selected Works",
+    status: "Status: All Deployed",
+    viewAll: "Lihat Semua Proyek",
+  },
+  EN: {
+    archive: "/archive_2024-2026",
+    title: "Selected Works",
+    status: "Status: All Deployed",
+    viewAll: "View All Projects",
+  },
+};
+
 const SelectedWorks = () => {
-  const { t } = useLanguage();
+  const { lang } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorLabelRef = useRef<HTMLDivElement>(null);
   const previewContainerRef = useRef<HTMLDivElement>(null);
 
-  // Refs untuk menyimpan fungsi animasi GSAP (Performance Optimization)
   const xTo = useRef<gsap.QuickToFunc | null>(null);
   const yTo = useRef<gsap.QuickToFunc | null>(null);
 
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const t = CONTENT[lang];
 
   useGSAP(
     () => {
-      // 1. Setup Animasi Mouse Follower (Preview Image)
       if (previewContainerRef.current) {
-        // Set initial position to center of viewport (optional, for safety)
         gsap.set(previewContainerRef.current, { xPercent: -50, yPercent: -50 });
 
         xTo.current = gsap.quickTo(previewContainerRef.current, "left", {
@@ -39,7 +53,6 @@ const SelectedWorks = () => {
         });
       }
 
-      // 2. Reveal List Animation (Stagger)
       gsap.from(".directory-row", {
         scrollTrigger: {
           trigger: ".directory-list",
@@ -62,14 +75,11 @@ const SelectedWorks = () => {
     }
   };
 
-  // Handle Hover Animation
   useEffect(() => {
     if (activeProject !== null) {
-      // SHOW Image
-      // Animasi Scale Up agar terlihat muncul dari titik kursor (atau tengah container preview)
       gsap.fromTo(
         previewContainerRef.current,
-        { scale: 0, opacity: 0 }, // Mulai dari kecil
+        { scale: 0, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
@@ -79,7 +89,6 @@ const SelectedWorks = () => {
         }
       );
 
-      // Label Text juga muncul
       gsap.to(cursorLabelRef.current, {
         scale: 1,
         opacity: 1,
@@ -87,7 +96,6 @@ const SelectedWorks = () => {
         overwrite: "auto",
       });
     } else {
-      // HIDE Image
       gsap.to(previewContainerRef.current, {
         scale: 0,
         opacity: 0,
@@ -107,23 +115,23 @@ const SelectedWorks = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-white py-24 md:py-32 px-4 overflow-hidden z-20"
+      className="relative w-full overflow-hidden bg-white px-4 py-24 md:py-32 z-20"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         {/* --- SECTION HEADER --- */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-gray-200 pb-6">
+        <div className="mb-16 flex flex-col items-end justify-between border-b border-gray-200 pb-6 md:flex-row">
           <div>
-            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-2">
-              /archive_2024-2026
+            <span className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-gray-400">
+              {t.archive}
             </span>
-            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-[#1A1A1A]">
-              Selected Works
+            <h2 className="text-3xl font-medium tracking-tight text-[#1A1A1A] md:text-5xl">
+              {t.title}
             </h2>
           </div>
-          <div className="hidden md:block text-right">
-            <p className="text-xs font-mono text-gray-500">
-              Total Projects: {t.projects.items.length} <br />
-              Status: All Deployed
+          <div className="hidden text-right md:block">
+            <p className="font-mono text-xs text-gray-500">
+              Total Projects: {PROJECTS.length} <br />
+              {t.status}
             </p>
           </div>
         </div>
@@ -134,7 +142,6 @@ const SelectedWorks = () => {
           onMouseMove={handleMouseMove}
           onMouseLeave={() => setActiveProject(null)}
         >
-          {/* Header Table */}
           <div className="flex w-full text-[10px] font-mono text-gray-400 uppercase tracking-widest pb-4 border-b border-gray-200">
             <span className="w-1/12">ID</span>
             <span className="w-5/12">Project Name</span>
@@ -142,33 +149,28 @@ const SelectedWorks = () => {
             <span className="w-3/12 text-right">Action</span>
           </div>
 
-          {/* Rows */}
-          {t.projects.items.map((project, index) => (
+          {PROJECTS.map((project, index) => (
             <Link
-              key={project.id}
-              href={project.link}
+              key={project.slug}
+              href={`/work/${project.slug}`}
               className="directory-row group flex w-full py-8 border-b border-gray-100 items-center hover:bg-gray-50 transition-colors relative z-10"
               onMouseEnter={() => setActiveProject(index)}
               onMouseLeave={() => setActiveProject(null)}
             >
-              {/* ID */}
               <span className="w-1/12 text-xs font-mono text-gray-400 group-hover:text-black transition-colors">
-                {project.id < 10 ? `0${index + 1}` : index + 1}
+                {index < 9 ? `0${index + 1}` : index + 1}
               </span>
 
-              {/* Title */}
               <span className="w-5/12 text-2xl font-medium text-gray-900 group-hover:translate-x-2 transition-transform duration-300">
-                {project.name}
+                {project.client}
               </span>
 
-              {/* Category (Pill) */}
               <span className="w-3/12">
                 <span className="text-[10px] font-mono uppercase bg-gray-100 text-gray-500 px-2 py-1 rounded border border-gray-200 group-hover:bg-black group-hover:text-white transition-colors">
-                  {project.category}
+                  {project[lang].category}
                 </span>
               </span>
 
-              {/* Arrow Icon */}
               <span className="w-3/12 text-right flex justify-end">
                 <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-colors">
                   <svg
@@ -190,78 +192,71 @@ const SelectedWorks = () => {
           ))}
         </div>
 
-        {/* --- MOBILE CARDS (FALLBACK) --- */}
-        <div className="flex md:hidden flex-col gap-8">
-          {t.projects.items.map((project) => (
-            <div key={project.id} className="w-full">
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg mb-4 border border-gray-200">
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover"
-                />
+        {/* --- MOBILE LIST (FALLBACK, TANPA GAMBAR) --- */}
+        <div className="flex md:hidden flex-col">
+          {PROJECTS.map((project) => (
+            <Link
+              key={project.slug}
+              href={`/work/${project.slug}`}
+              className="flex w-full items-center justify-between gap-4 py-6 border-b border-gray-100"
+            >
+              <div>
+                <span className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-gray-400">
+                  {project[lang].category}
+                </span>
+                <h3 className="text-xl font-medium text-gray-900">
+                  {project.client}
+                </h3>
               </div>
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="text-[10px] font-mono text-gray-400 mb-1 block">
-                    {project.category}
-                  </span>
-                  <h3 className="text-xl font-medium text-gray-900">
-                    {project.name}
-                  </h3>
-                </div>
-                <Link
-                  href={project.link}
-                  className="w-8 h-8 rounded-full bg-black flex items-center justify-center"
+              <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shrink-0">
+                <svg
+                  className="w-3 h-3 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <svg
-                    className="w-3 h-3 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </Link>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
               </div>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        {/* --- VIEW ALL --- */}
+        <div className="mt-16 border-t border-gray-200 pt-10 text-center">
+          <Link
+            href="/work"
+            className="inline-flex items-center gap-2 border-b border-black pb-1 font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:border-indigo-700 hover:text-indigo-700"
+          >
+            {t.viewAll}
+          </Link>
         </div>
       </div>
 
-      {/* --- FLOATING PREVIEW CONTAINER (FIXED POS) --- */}
-      {/* Catatan: Agar gambar muncul dari tengah viewport lalu mengikuti kursor, 
-          kita sebenarnya butuh logika yang lebih kompleks jika ingin benar-benar "fly from center".
-          Namun, standar UX "Mouse Follower" adalah gambar muncul (scale up/fade in) 
-          langsung di posisi kursor saat ini untuk menghindari disorientasi.
-          
-          Kode di atas menggunakan `fixed` positioning yang di-update oleh GSAP quickTo.
-      */}
+      {/* --- FLOATING PREVIEW CONTAINER (MOUSE FOLLOWER) --- */}
       <div
         ref={previewContainerRef}
-        className="fixed top-0 left-0 w-[300px] h-[200px] md:w-[400px] md:h-[260px] pointer-events-none z-50 rounded-lg overflow-hidden hidden md:block border-4 border-white shadow-2xl opacity-0 scale-0"
-        style={{ transform: "translate(-50%, -50%)" }} // Centering transform via CSS
+        className="hidden md:block fixed top-0 left-0 w-[340px] h-[240px] md:w-[440px] md:h-[300px] pointer-events-none z-50 rounded-lg overflow-hidden border-4 border-white shadow-2xl opacity-0 scale-0"
+        style={{ transform: "translate(-50%, -50%)" }}
       >
-        {t.projects.items.map((project, index) => (
-          <Image
-            key={project.id}
-            src={project.image}
-            alt={project.name}
-            fill
-            priority={index === 0}
-            className={`object-cover transition-opacity duration-300 ${
-              activeProject === index ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+        <div className="absolute inset-0">
+          {PROJECTS.map((project, index) => (
+            <div
+              key={project.slug}
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                activeProject === index ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <ProjectMockup project={project} sizes="440px" priority />
+            </div>
+          ))}
+        </div>
 
-        {/* Technical Overlay on Image */}
         <div
           ref={cursorLabelRef}
           className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-[8px] font-mono px-2 py-1 rounded"

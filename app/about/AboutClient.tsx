@@ -2,9 +2,15 @@
 
 import React, { useLayoutEffect, useRef, useMemo, Suspense } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  ABOUT_CLIENTS,
+  ABOUT_TEAM_MEMBERS,
+  COMPLETED_PROJECTS,
+} from "./about-data";
 import {
   LightBulbIcon,
   UserGroupIcon,
@@ -16,12 +22,10 @@ import {
   CpuChipIcon,
   CodeBracketIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { link } from "fs";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- KONTEN (ID & EN) ---
 const CONTENT = {
   ID: {
     hero: {
@@ -38,25 +42,14 @@ const CONTENT = {
         "Kami tidak hanya menulis kode. Kami menulis masa depan bisnis Anda.",
     },
     stats: [
-      { number: "3+", label: "Tahun Pengalaman" }, // Added 0 padding style
+      { number: "3+", label: "Tahun Pengalaman" },
       { number: "5+", label: "Proyek Selesai" },
       { number: "5+", label: "Klien Partner" },
       { number: "100%", label: "Dedikasi" },
     ],
     clients: {
       title: "Log Klien",
-      logos: [
-        "Kinaya Interior Design",
-        "YellowKost & Partner",
-        "Lentera Fajar Indonesia",
-        "Rahayu Transport",
-        "KAI Wisata",
-        "Kinaya Interior Design",
-        "YellowKost & Partner",
-        "Lentera Fajar Indonesia",
-        "Rahayu Transport",
-        "KAI Wisata",
-      ],
+      logos: ABOUT_CLIENTS,
     },
     process: {
       title: "Protokol Kerja",
@@ -122,20 +115,7 @@ const CONTENT = {
     team: {
       title: "Personil Inti",
       subtitle: "Bertemu dengan otak di balik layar.",
-      members: [
-        {
-          name: "Gilang Ramadhan",
-          role: "Founder, CEO & Frontend Developer",
-          link: "https://www.linkedin.com/in/gilang-ramaddhann/",
-          image: "/images/profiles/pf_gilang_ramadhan.webp",
-        },
-        {
-          name: "M. Aprilandi Nanu",
-          role: "Back End Engineer, Database Engineer",
-          link: "https://www.linkedin.com/in/aprilandi-nanu-2b3037258/",
-          image: "/images/profiles/pf_aprilandi_nanu.webp",
-        },
-      ],
+      members: ABOUT_TEAM_MEMBERS,
     },
     culture: {
       title: "Bergabunglah",
@@ -163,18 +143,7 @@ const CONTENT = {
     ],
     clients: {
       title: "Client Logs",
-      logos: [
-        "Kinaya Interior Design",
-        "YellowKost & Partner",
-        "Lentera Fajar Indonesia",
-        "Rahayu Transport",
-        "KAI Wisata",
-        "Kinaya Interior Design",
-        "YellowKost & Partner",
-        "Lentera Fajar Indonesia",
-        "Rahayu Transport",
-        "KAI Wisata",
-      ],
+      logos: ABOUT_CLIENTS,
     },
     process: {
       title: "Working Protocol",
@@ -240,20 +209,7 @@ const CONTENT = {
     team: {
       title: "Core Personnel",
       subtitle: "Meet the brains behind the scenes.",
-      members: [
-        {
-          name: "Gilang Ramadhan",
-          role: "Founder, CEO & Frontend Developer",
-          link: "https://www.linkedin.com/in/gilang-ramaddhann/",
-          image: "/images/profiles/pf_gilang_ramadhan.webp",
-        },
-        {
-          name: "M. Aprilandi Nanu",
-          role: "Backend Engineer, Database Engineer",
-          link: "https://www.linkedin.com/in/aprilandi-nanu-2b3037258/",
-          image: "/images/profiles/pf_aprilandi_nanu.webp",
-        },
-      ],
+      members: ABOUT_TEAM_MEMBERS,
     },
     culture: {
       title: "Join Us",
@@ -533,6 +489,48 @@ const AboutContent = () => {
         </div>
       </section>
 
+      {/* --- COMPLETED PROJECTS --- */}
+      <section className="projects-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
+        <div className="mb-16">
+          <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-gray-400 mb-2 block">
+            / Completed_Projects
+          </span>
+          <h2 className="text-3xl md:text-5xl font-medium text-black">
+            {lang === "EN" ? "Completed Projects" : "Proyek yang Diselesaikan"}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {COMPLETED_PROJECTS.map((project) => (
+            <article
+              key={project.slug}
+              className="project-card group border border-gray-200 bg-white p-6 md:p-8 transition-colors hover:border-black"
+            >
+              <div className="flex items-start justify-between gap-4 mb-8">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-gray-400">
+                  {project.status}
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-gray-400">
+                  {project[lang].category}
+                </span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-black mb-4">
+                {project.client}
+              </h3>
+              <p className="text-sm text-gray-500 font-mono leading-relaxed mb-8">
+                {project[lang].description}
+              </p>
+              <Link
+                href={`/work/${project.slug}`}
+                className="inline-flex items-center border-b border-black pb-1 text-xs font-mono font-bold uppercase tracking-widest text-black transition-colors hover:border-indigo-600 hover:text-indigo-600"
+              >
+                {lang === "EN" ? "View Case Study" : "Lihat Studi Kasus"}
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* --- TEAM SECTION (File Folder Style) --- */}
       <section className="team-section relative z-10 px-6 md:px-12 mb-32 max-w-7xl mx-auto">
         <div className="mb-16 flex items-center gap-4">
@@ -547,7 +545,7 @@ const AboutContent = () => {
               key={idx}
               className="team-card group border border-gray-200 bg-white p-4 rounded-xl"
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 mb-4  rounded-lg">
+              <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 mb-4 rounded-lg">
                 <Image
                   src={member.image}
                   alt={member.name}
@@ -560,18 +558,17 @@ const AboutContent = () => {
                 <h3 className="text-sm font-bold text-black uppercase tracking-wide">
                   {member.name}
                 </h3>
-                <p className="text-[10px] font-mono text-gray-500 uppercase mt-1">
+                <p className="text-[10px] font-mono text-gray-500 uppercase mt-1 mb-4">
                   {member.role}
                 </p>
-                {member.link && (
-                  <Link
-                    href={member.link}
-                    target="_blank"
-                    className="text-[10px] font-mono text-gray-500 hover:text-blue-500 hover:underline transition-colors uppercase"
-                  >
-                    <span className="mt-10 inline-block">LinkedIn</span>
-                  </Link>
-                )}
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center pb-0.5 text-xs font-mono font-bold uppercase tracking-widest text-black transition-colors hover:text-indigo-600 hover:border-indigo-600"
+                >
+                  LinkedIn
+                </a>
               </div>
             </div>
           ))}

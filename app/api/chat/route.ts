@@ -73,7 +73,7 @@ export async function POST(req: Request) {
 
     // 3. GENERATING ANSWER
     const result = await streamText({
-      model: groq("llama-3.1-8b-instant"),
+      model: groq("openai/gpt-oss-20b"),
       messages: limitedMessages,
       temperature: 0.2,
 

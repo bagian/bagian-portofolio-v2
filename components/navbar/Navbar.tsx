@@ -231,6 +231,17 @@ const Navbar = () => {
           })}
         </div>
 
+        {/* LOGIN (Mobile) */}
+        <div className="mobile-footer w-full shrink-0 px-6 pb-2 md:px-12">
+          <Link
+            href="https://customers.bagian.web.id/"
+            onClick={handleLinkClick}
+            className="mobile-footer block w-full text-center px-8 py-4 bg-black text-white text-sm font-mono font-bold uppercase tracking-widest hover:bg-indigo-600 transition-colors rounded-full"
+          >
+            Login
+          </Link>
+        </div>
+
         {/* FOOTER (Bottom) */}
         <div className="mobile-footer w-full shrink-0 flex justify-between items-end p-6 md:p-12 pb-8 md:pb-12 border-t border-gray-100 bg-white">
           <div className="flex flex-col">

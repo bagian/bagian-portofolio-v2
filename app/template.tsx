@@ -27,9 +27,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }
 
     const ctx = gsap.context(() => {
-      // 2. SETUP AWAL (INSTAN SEBELUM PAINT)
-      // Kita gunakan fromTo agar state awal dan akhir terkunci pasti.
-      // Jarak y dikurangi jadi 20px saja agar tidak ada lonjakan layout drastis.
 
       gsap.fromTo(
         containerRef.current,

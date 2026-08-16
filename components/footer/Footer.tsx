@@ -131,45 +131,41 @@ const FooterCTA = () => {
 
   useGSAP(
     () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const q = gsap.utils.selector(container);
+
+      gsap.set(q(".cta-anim"), { y: 60, opacity: 0 });
+      gsap.set(q(".footer-anim"), { y: 30, opacity: 0 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: container,
           start: "top 90%",
           once: true,
         },
       });
-      tl.from(".cta-anim", {
-        y: 60,
-        opacity: 0,
+
+      tl.to(q(".cta-anim"), {
+        y: 0,
+        opacity: 1,
         duration: 1,
         stagger: 0.15,
         ease: "power3.out",
-        clearProps: "all",
-        immediateRender: false,
+        clearProps: "transform,opacity",
       });
-      tl.from(
-        ".footer-divider",
+
+      tl.to(
+        q(".footer-anim"),
         {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 1.2,
-          ease: "expo.out",
-          immediateRender: false,
-        },
-        "-=0.5"
-      );
-      tl.from(
-        ".footer-anim",
-        {
-          y: 30,
-          opacity: 0,
+          y: 0,
+          opacity: 1,
           duration: 0.8,
           stagger: 0.1,
           ease: "power2.out",
-          clearProps: "all",
-          immediateRender: false,
+          clearProps: "transform,opacity",
         },
-        "-=0.8"
+        "-=0.4"
       );
     },
     { scope: containerRef }
